@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <title>Kappa Katalogue — Commuters' Lounge Reservations</title>
 <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
 <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
@@ -21,32 +21,37 @@
     --silver: #aaaaaa; --silver-dark: #888888;
   }
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-  body { font-family: 'DM Sans', sans-serif; background: var(--black); color: var(--text); min-height: 100vh; overflow-x: hidden; }
+  body { 
+    font-family: 'DM Sans', sans-serif; 
+    background: var(--black); 
+    color: var(--text); 
+    min-height: 100vh; 
+    overflow-x: hidden;
+    -webkit-tap-highlight-color: transparent;
+  }
   body::before { content: ''; position: fixed; inset: 0; background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E"); pointer-events: none; z-index: 999; opacity: 0.4; }
   
   /* ==================================================
-     ENHANCED ENTRY SCREEN (PREMIUM AESTHETIC)
+     ENHANCED ENTRY SCREEN (MOBILE-FRIENDLY)
      ================================================== */
   .entry-screen {
     position: fixed;
     inset: 0;
-    /* Deep red-to-black gradient */
     background: radial-gradient(circle at 50% 50%, #1c0205 0%, #000000 100%);
     z-index: 1000;
     display: flex;
     justify-content: center;
     align-items: center;
     transition: opacity 0.5s ease, visibility 0.5s;
-    padding: 2rem;
+    padding: 1rem;
   }
   
-  /* Giant Wolf Watermark Background */
   .entry-screen::before {
     content: '';
     position: absolute;
     inset: 0;
     background-image: url('https://i.postimg.cc/bwQbG84t/Towers-Logo.png');
-    background-size: 65vh;
+    background-size: 50vh;
     background-position: center;
     background-repeat: no-repeat;
     opacity: 0.04;
@@ -55,21 +60,20 @@
     filter: grayscale(100%) brightness(0.8);
   }
 
-  /* Main Card Container for Login - Frosted glass with red border and glow */
   .entry-content {
-    background: rgba(20, 20, 20, 0.75);
+    background: rgba(20, 20, 20, 0.85);
     backdrop-filter: blur(15px);
     border: 1px solid var(--border);
     border-top: 3px solid var(--red);
     border-radius: 28px;
-    padding: 3rem 2.5rem;
+    padding: 2rem 1.5rem;
     box-shadow: 0 25px 50px rgba(0,0,0,0.5), 0 0 80px rgba(200, 16, 46, 0.15);
     display: flex;
     flex-direction: column;
     align-items: center;
     text-align: center;
     z-index: 1;
-    max-width: 600px;
+    max-width: 500px;
     width: 100%;
     animation: fadeUp 0.8s ease both;
   }
@@ -83,26 +87,25 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    gap: 3rem;
+    gap: 2rem;
     flex-wrap: wrap;
-    margin-bottom: 1.5rem;
+    margin-bottom: 1rem;
   }
   
   .towers-logo img, .offcampus-logo img {
-    width: 130px;
-    height: 130px;
+    width: 100px;
+    height: 100px;
     object-fit: contain;
     filter: drop-shadow(0 0 15px rgba(200,16,46,0.3));
     transition: transform 0.3s ease;
   }
   .towers-logo img:hover, .offcampus-logo img:hover {
     transform: scale(1.05);
-    filter: drop-shadow(0 0 25px rgba(200,16,46,0.5));
   }
 
   .entry-title {
     font-family: 'Bebas Neue', sans-serif;
-    font-size: 4.5rem;
+    font-size: 3.5rem;
     letter-spacing: 0.05em;
     line-height: 1;
     margin-top: 0.5rem;
@@ -110,10 +113,9 @@
   }
   .entry-title span { color: var(--red); }
   
-  /* Hall name styled exactly like "Reserve Your Spot" heading */
   .entry-hall {
     font-family: 'Bebas Neue', sans-serif;
-    font-size: 2.2rem;
+    font-size: 1.8rem;
     letter-spacing: 0.05em;
     text-transform: uppercase;
     line-height: 1.2;
@@ -125,31 +127,30 @@
     color: var(--red);
   }
   
-  /* REMINDER BOX - 5-day advance notice */
   .entry-reminder {
-    background: rgba(0, 0, 0, 0.5);
+    background: rgba(0, 0, 0, 0.6);
     border-left: 3px solid var(--amber);
-    border-radius: 10px;
-    padding: 0.8rem 1.2rem;
-    margin: 1rem 0 1.8rem;
+    border-radius: 12px;
+    padding: 0.7rem 1rem;
+    margin: 1rem 0 1.5rem;
     display: flex;
     align-items: center;
-    gap: 12px;
+    gap: 10px;
     text-align: left;
     width: 100%;
     backdrop-filter: blur(4px);
   }
   .reminder-icon {
-    font-size: 1.6rem;
+    font-size: 1.4rem;
     flex-shrink: 0;
   }
   .reminder-text {
     font-family: 'DM Sans', sans-serif;
-    font-size: 0.85rem;
+    font-size: 0.8rem;
     font-weight: 500;
     color: var(--amber);
     letter-spacing: 0.02em;
-    line-height: 1.4;
+    line-height: 1.35;
   }
   .reminder-text strong {
     color: var(--red);
@@ -158,23 +159,23 @@
   
   .entry-buttons {
     display: flex;
-    gap: 1.5rem;
+    gap: 1rem;
     flex-wrap: wrap;
     justify-content: center;
     width: 100%;
   }
   
   .entry-btn {
-    padding: 1.2rem 2rem;
-    font-size: 1.3rem;
+    padding: 1rem 1.5rem;
+    font-size: 1.2rem;
     font-family: 'Bebas Neue', sans-serif;
     letter-spacing: 0.1em;
     border: none;
     border-radius: 12px;
     cursor: pointer;
-    transition: transform 0.2s, box-shadow 0.2s, background 0.2s;
+    transition: transform 0.2s, box-shadow 0.2s;
     flex: 1;
-    min-width: 200px;
+    min-width: 160px;
   }
   
   .entry-btn.red {
@@ -185,7 +186,6 @@
   .entry-btn.red:hover {
     background: var(--red-dark);
     transform: translateY(-2px);
-    box-shadow: 0 12px 30px rgba(200,16,46,0.4);
   }
   
   .entry-btn.silver {
@@ -197,10 +197,9 @@
     background: rgba(255,255,255,0.05);
     color: white;
     border-color: var(--muted);
-    transform: translateY(-2px);
   }
   
-  /* Main app */
+  /* Main app - mobile optimizations */
   .main-app {
     display: none;
   }
@@ -208,115 +207,117 @@
     display: block;
   }
   
-  /* ==================================================
-     ORIGINAL CSS (Unchanged from Main App)
-     ================================================== */
-  header { position: sticky; top: 0; z-index: 100; background: rgba(10,10,10,0.92); backdrop-filter: blur(12px); border-bottom: 1px solid var(--border); padding: 0 2rem; display: flex; align-items: center; justify-content: space-between; height: 64px; }
-  .logo { display: flex; align-items: center; gap: 10px; cursor: pointer; }
-  .logo-text { font-family: 'Bebas Neue', sans-serif; font-size: 1.4rem; letter-spacing: 0.05em; }
+  header {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: rgba(10,10,10,0.95);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border);
+    padding: 0 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 60px;
+  }
+  .logo { display: flex; align-items: center; gap: 8px; cursor: pointer; }
+  .logo-text { font-family: 'Bebas Neue', sans-serif; font-size: 1.2rem; letter-spacing: 0.05em; }
   .logo-text span { color: var(--red); }
-  .nav-status { font-family: 'DM Mono', monospace; font-size: 0.72rem; color: var(--muted); letter-spacing: 0.08em; display: flex; align-items: center; gap: 15px; position: relative; }
-  .status-dot { display: inline-block; width: 6px; height: 6px; border-radius: 50%; background: #22c55e; margin-right: 6px; animation: pulse 2s infinite; }
-  .admin-login-btn { background: none; border: 1px solid var(--border); color: var(--muted); border-radius: 6px; padding: 4px 8px; font-size: 0.68rem; cursor: pointer; font-family: 'DM Mono', monospace; transition: all 0.2s; position: relative; }
+  .nav-status { font-family: 'DM Mono', monospace; font-size: 0.65rem; color: var(--muted); display: flex; align-items: center; gap: 12px; }
+  .status-dot { display: inline-block; width: 6px; height: 6px; border-radius: 50%; background: #22c55e; margin-right: 4px; animation: pulse 2s infinite; }
+  .admin-login-btn { background: none; border: 1px solid var(--border); color: var(--muted); border-radius: 8px; padding: 6px 10px; font-size: 0.7rem; cursor: pointer; font-family: 'DM Mono', monospace; transition: all 0.2s; }
   .admin-login-btn:hover { border-color: var(--admin); color: var(--admin); }
-  .pending-badge { position: absolute; top: -8px; right: -8px; background: var(--red); color: white; border-radius: 20px; padding: 2px 6px; font-size: 0.6rem; font-weight: bold; font-family: 'DM Mono', monospace; display: none; }
+  .pending-badge { position: absolute; top: -6px; right: -6px; background: var(--red); color: white; border-radius: 20px; padding: 2px 5px; font-size: 0.55rem; font-weight: bold; display: none; }
   @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.3; } }
-  .hero { padding: 4rem 2rem 2rem; max-width: 900px; margin: 0 auto; animation: fadeUp 0.6s ease both; }
+  
+  .hero { padding: 2rem 1rem 1.5rem; max-width: 900px; margin: 0 auto; animation: fadeUp 0.6s ease both; }
   @keyframes fadeUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
-  .hero-label { font-family: 'DM Mono', monospace; font-size: 0.72rem; letter-spacing: 0.15em; color: var(--red); text-transform: uppercase; margin-bottom: 1rem; display: flex; align-items: center; gap: 8px; }
+  .hero-label { font-family: 'DM Mono', monospace; font-size: 0.65rem; letter-spacing: 0.15em; color: var(--red); text-transform: uppercase; margin-bottom: 0.75rem; display: flex; align-items: center; gap: 8px; }
   .hero-label::before { content: ''; width: 24px; height: 1px; background: var(--red); }
-  h1 { font-family: 'Bebas Neue', sans-serif; font-size: clamp(3rem, 8vw, 5.5rem); line-height: 0.95; letter-spacing: 0.02em; margin-bottom: 1rem; }
+  h1 { font-family: 'Bebas Neue', sans-serif; font-size: clamp(2.5rem, 8vw, 4.5rem); line-height: 0.95; letter-spacing: 0.02em; margin-bottom: 0.75rem; }
   h1 em { color: var(--red); font-style: normal; }
-  .hero-sub { color: var(--muted); font-size: 0.95rem; line-height: 1.6; max-width: 480px; margin-bottom: 2rem; }
-  .hours-pill { display: inline-flex; align-items: center; gap: 8px; background: var(--surface); border: 1px solid var(--border); border-radius: 20px; padding: 6px 14px; font-family: 'DM Mono', monospace; font-size: 0.72rem; color: var(--muted); margin-bottom: 0.5rem; }
-  .hours-pill .dot { width: 6px; height: 6px; border-radius: 50%; background: #22c55e; }
-  .capacity-bar-wrap { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 1.2rem 1.5rem; margin-bottom: 3rem; display: flex; align-items: center; gap: 1.5rem; animation: fadeUp 0.6s 0.1s ease both; max-width: 900px; margin-left: auto; margin-right: auto; }
+  .hero-sub { color: var(--muted); font-size: 0.85rem; line-height: 1.5; max-width: 480px; margin-bottom: 1.5rem; }
+  .hours-pill { display: inline-flex; align-items: center; gap: 6px; background: var(--surface); border: 1px solid var(--border); border-radius: 20px; padding: 4px 12px; font-family: 'DM Mono', monospace; font-size: 0.65rem; color: var(--muted); margin-bottom: 0.5rem; }
+  .hours-pill .dot { width: 5px; height: 5px; border-radius: 50%; background: #22c55e; }
+  
+  .capacity-bar-wrap { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 1rem; margin-bottom: 2rem; display: flex; align-items: center; gap: 1rem; max-width: 900px; margin-left: auto; margin-right: auto; }
   .cap-info { flex: 1; }
-  .cap-label { font-size: 0.75rem; color: var(--muted); letter-spacing: 0.08em; text-transform: uppercase; font-family: 'DM Mono', monospace; margin-bottom: 6px; }
-  .cap-track { height: 6px; background: var(--surface2); border-radius: 3px; overflow: hidden; }
+  .cap-label { font-size: 0.7rem; color: var(--muted); letter-spacing: 0.08em; text-transform: uppercase; font-family: 'DM Mono', monospace; margin-bottom: 4px; }
+  .cap-track { height: 5px; background: var(--surface2); border-radius: 3px; overflow: hidden; }
   .cap-fill { height: 100%; background: linear-gradient(90deg, var(--red), var(--accent)); border-radius: 3px; transition: width 0.6s ease; width: 0%; }
-  .cap-number { font-family: 'Bebas Neue', sans-serif; font-size: 2.2rem; line-height: 1; }
-  .cap-number span { color: var(--muted); font-size: 1.2rem; }
-  .main { max-width: 900px; margin: 0 auto; padding: 0 2rem 4rem; display: grid; grid-template-columns: 1.2fr 1fr; gap: 1.5rem; }
-  @media (max-width: 680px) { .main { grid-template-columns: 1fr; } }
-  .card { background: var(--surface); border: 1px solid var(--border); border-radius: 16px; overflow: hidden; animation: fadeUp 0.6s 0.2s ease both; }
-  .card-header { padding: 1.2rem 1.5rem; border-bottom: 1px solid var(--border); display: flex; align-items: center; justify-content: space-between; }
-  .card-title { font-family: 'DM Mono', monospace; font-size: 0.72rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); }
-  .card-body { padding: 1.5rem; }
-  .field { margin-bottom: 1.1rem; }
-  .field:last-of-type { margin-bottom: 0; }
-  label { display: block; font-size: 0.78rem; font-weight: 500; letter-spacing: 0.04em; color: var(--muted); margin-bottom: 6px; text-transform: uppercase; }
-  input, select, textarea { width: 100%; background: var(--surface2); border: 1px solid var(--border); border-radius: 8px; color: var(--text); font-family: 'DM Sans', sans-serif; font-size: 0.92rem; padding: 10px 14px; outline: none; transition: border-color 0.2s, box-shadow 0.2s; appearance: none; }
+  .cap-number { font-family: 'Bebas Neue', sans-serif; font-size: 1.8rem; line-height: 1; }
+  .cap-number span { color: var(--muted); font-size: 1rem; }
+  
+  .main { max-width: 900px; margin: 0 auto; padding: 0 1rem 2rem; display: grid; grid-template-columns: 1fr; gap: 1.5rem; }
+  @media (min-width: 680px) { .main { grid-template-columns: 1.2fr 1fr; } }
+  
+  .card { background: var(--surface); border: 1px solid var(--border); border-radius: 20px; overflow: hidden; animation: fadeUp 0.6s 0.2s ease both; }
+  .card-header { padding: 1rem 1.2rem; border-bottom: 1px solid var(--border); display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 8px; }
+  .card-title { font-family: 'DM Mono', monospace; font-size: 0.7rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); }
+  .card-body { padding: 1.2rem; }
+  
+  .field { margin-bottom: 1rem; }
+  label { display: block; font-size: 0.7rem; font-weight: 500; letter-spacing: 0.04em; color: var(--muted); margin-bottom: 5px; text-transform: uppercase; }
+  input, select, textarea { width: 100%; background: var(--surface2); border: 1px solid var(--border); border-radius: 10px; color: var(--text); font-family: 'DM Sans', sans-serif; font-size: 0.9rem; padding: 12px 14px; outline: none; transition: border-color 0.2s; }
   input:focus, select:focus, textarea:focus { border-color: var(--red); box-shadow: 0 0 0 3px var(--red-glow); }
-  select option { background: var(--surface2); }
-  textarea { resize: vertical; min-height: 72px; }
-  .outside-notice { background: var(--amber-glow); border: 1px solid rgba(245,158,11,0.3); border-radius: 8px; padding: 10px 14px; font-size: 0.82rem; color: var(--amber); margin-bottom: 1.1rem; display: none; line-height: 1.5; }
-  .outside-notice.show { display: block; }
-  .time-row { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
-  .date-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(70px, 1fr)); gap: 8px; margin-bottom: 1.1rem; }
-  .date-chip { padding: 8px 4px; border: 1px solid var(--border); border-radius: 8px; cursor: pointer; text-align: center; background: var(--surface2); transition: all 0.2s; }
+  textarea { min-height: 80px; }
+  
+  .date-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(70px, 1fr)); gap: 8px; margin-bottom: 1rem; }
+  .date-chip { padding: 8px 4px; border: 1px solid var(--border); border-radius: 10px; cursor: pointer; text-align: center; background: var(--surface2); transition: all 0.2s; }
   .date-chip:hover { border-color: var(--red); }
   .date-chip.active { border-color: var(--red); background: var(--red); }
-  .date-chip .dc-day { font-family: 'DM Mono', monospace; font-size: 0.62rem; color: var(--muted); text-transform: uppercase; }
+  .date-chip .dc-day { font-family: 'DM Mono', monospace; font-size: 0.6rem; color: var(--muted); text-transform: uppercase; }
   .date-chip.active .dc-day { color: rgba(255,255,255,0.7); }
-  .date-chip .dc-date { font-family: 'Bebas Neue', sans-serif; font-size: 1.4rem; line-height: 1; margin-top: 2px; }
-  .type-toggle { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; margin-bottom: 1.1rem; }
-  .type-btn { padding: 10px; border: 1px solid var(--border); border-radius: 8px; background: var(--surface2); color: var(--muted); cursor: pointer; font-family: 'DM Sans', sans-serif; font-size: 0.82rem; font-weight: 500; text-align: center; transition: all 0.2s; }
-  .type-btn:hover { border-color: var(--red); color: var(--text); }
-  .type-btn.active { border-color: var(--red); background: var(--red-glow); color: var(--text); }
-  .slots-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 7px; }
-  .slot { border: 1px solid var(--border); border-radius: 8px; padding: 9px 6px; text-align: center; cursor: pointer; transition: all 0.2s; font-size: 0.78rem; font-family: 'DM Mono', monospace; background: var(--surface2); color: var(--muted); }
+  .date-chip .dc-date { font-family: 'Bebas Neue', sans-serif; font-size: 1.3rem; line-height: 1; margin-top: 2px; }
+  
+  .slots-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 8px; }
+  @media (min-width: 500px) { .slots-grid { grid-template-columns: repeat(4, 1fr); } }
+  .slot { border: 1px solid var(--border); border-radius: 10px; padding: 10px 4px; text-align: center; cursor: pointer; transition: all 0.2s; font-size: 0.75rem; font-family: 'DM Mono', monospace; background: var(--surface2); color: var(--muted); }
   .slot:hover:not(.taken):not(.blocked):not(.passed) { border-color: var(--red); color: var(--text); background: var(--red-glow); }
   .slot.selected { border-color: var(--red); background: var(--red); color: white; }
-  .slot.taken { opacity: 0.3; cursor: not-allowed; text-decoration: line-through; }
+  .slot.taken { opacity: 0.4; cursor: not-allowed; text-decoration: line-through; }
   .slot.blocked { opacity: 0.6; cursor: not-allowed; border-color: var(--amber); color: var(--amber); background: var(--amber-glow); }
   .slot.passed { opacity: 0.4; cursor: not-allowed; background: #2a2a2a; text-decoration: line-through; color: #888; }
-  .slot-time { font-size: 0.7rem; }
-  .slot-status { font-size: 0.6rem; margin-top: 2px; opacity: 0.7; }
-  .btn { width: 100%; padding: 14px; background: var(--red); color: white; border: none; border-radius: 10px; font-family: 'Bebas Neue', sans-serif; font-size: 1.2rem; letter-spacing: 0.1em; cursor: pointer; transition: all 0.2s; margin-top: 1.4rem; position: relative; overflow: hidden; }
+  .slot-time { font-size: 0.7rem; font-weight: 500; }
+  .slot-status { font-size: 0.55rem; margin-top: 2px; opacity: 0.8; }
+  
+  .btn { width: 100%; padding: 14px; background: var(--red); color: white; border: none; border-radius: 12px; font-family: 'Bebas Neue', sans-serif; font-size: 1.2rem; letter-spacing: 0.1em; cursor: pointer; transition: all 0.2s; margin-top: 1.2rem; }
   .btn:hover { background: var(--red-dark); transform: translateY(-1px); box-shadow: 0 8px 24px rgba(200,16,46,0.35); }
-  .btn:active { transform: translateY(0); }
-  .btn::after { content: ''; position: absolute; inset: 0; background: linear-gradient(180deg, rgba(255,255,255,0.08) 0%, transparent 100%); pointer-events: none; }
-  .tab-bar { display: flex; gap: 4px; background: var(--surface2); border-radius: 8px; padding: 4px; margin-bottom: 1.4rem; }
-  .tab-btn { flex: 1; padding: 8px; background: none; border: none; color: var(--muted); font-family: 'DM Mono', monospace; font-size: 0.68rem; letter-spacing: 0.08em; text-transform: uppercase; cursor: pointer; border-radius: 6px; transition: all 0.2s; position: relative; }
+  
+  .tab-bar { display: flex; gap: 4px; background: var(--surface2); border-radius: 12px; padding: 4px; margin-bottom: 1.2rem; }
+  .tab-btn { flex: 1; padding: 8px; background: none; border: none; color: var(--muted); font-family: 'DM Mono', monospace; font-size: 0.7rem; letter-spacing: 0.08em; text-transform: uppercase; cursor: pointer; border-radius: 8px; transition: all 0.2s; position: relative; }
   .tab-btn.active { background: var(--surface); color: var(--text); border: 1px solid var(--border); }
-  .tab-badge { position: absolute; top: -6px; right: -6px; background: var(--red); color: white; border-radius: 20px; padding: 2px 6px; font-size: 0.6rem; font-weight: bold; font-family: 'DM Mono', monospace; display: none; }
-  .tab-pane { display: none; }
-  .tab-pane.active { display: block; }
-  .booking-item { display: flex; align-items: flex-start; gap: 10px; padding: 0.9rem 0; border-bottom: 1px solid var(--border); animation: fadeUp 0.3s ease both; }
-  .booking-item:last-child { border-bottom: none; padding-bottom: 0; }
-  .booking-item:first-child { padding-top: 0; }
-  .booking-avatar { width: 38px; height: 38px; border-radius: 50%; background: var(--red-glow); border: 1px solid var(--red); display: flex; align-items: center; justify-content: center; font-family: 'Bebas Neue', sans-serif; font-size: 1rem; color: var(--red); flex-shrink: 0; margin-top: 2px; }
-  .booking-info { flex: 1; min-width: 0; }
-  .booking-name { font-weight: 600; font-size: 0.88rem; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-  .booking-meta { font-size: 0.72rem; color: var(--muted); font-family: 'DM Mono', monospace; margin-top: 2px; }
-  .booking-meta2 { font-size: 0.72rem; color: var(--muted); margin-top: 2px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-  .booking-tag { font-family: 'DM Mono', monospace; font-size: 0.62rem; padding: 3px 7px; border-radius: 4px; white-space: nowrap; flex-shrink: 0; }
+  .tab-badge { position: absolute; top: -4px; right: -4px; background: var(--red); color: white; border-radius: 20px; padding: 2px 5px; font-size: 0.55rem; font-weight: bold; display: none; }
+  
+  .booking-item { display: flex; align-items: flex-start; gap: 12px; padding: 0.8rem 0; border-bottom: 1px solid var(--border); flex-wrap: wrap; }
+  .booking-avatar { width: 40px; height: 40px; border-radius: 50%; background: var(--red-glow); border: 1px solid var(--red); display: flex; align-items: center; justify-content: center; font-family: 'Bebas Neue', sans-serif; font-size: 1.2rem; color: var(--red); flex-shrink: 0; }
+  .booking-info { flex: 1; min-width: 140px; }
+  .booking-name { font-weight: 600; font-size: 0.85rem; }
+  .booking-meta { font-size: 0.7rem; color: var(--muted); font-family: 'DM Mono', monospace; margin-top: 2px; word-break: break-word; }
+  .booking-tag { font-family: 'DM Mono', monospace; font-size: 0.6rem; padding: 3px 8px; border-radius: 20px; white-space: nowrap; }
   .tag-standard { background: var(--red-glow); border: 1px solid rgba(200,16,46,0.3); color: var(--red); }
   .tag-special { background: var(--amber-glow); border: 1px solid rgba(245,158,11,0.3); color: var(--amber); }
-  .action-btn { background: none; border: 1px solid var(--border); color: var(--muted); border-radius: 6px; padding: 4px 8px; font-size: 0.68rem; cursor: pointer; font-family: 'DM Mono', monospace; transition: all 0.2s; white-space: nowrap; margin-left: 4px; }
+  .action-btn { background: none; border: 1px solid var(--border); color: var(--muted); border-radius: 8px; padding: 6px 12px; font-size: 0.7rem; cursor: pointer; font-family: 'DM Mono', monospace; transition: all 0.2s; white-space: nowrap; }
   .action-btn:hover { border-color: var(--red); color: var(--red); }
   .action-btn.approve:hover { border-color: var(--green); color: var(--green); }
+  
   .empty-state { text-align: center; padding: 2rem; color: var(--muted); font-size: 0.85rem; }
-  .empty-icon { font-size: 2rem; margin-bottom: 0.5rem; opacity: 0.4; }
-  .status-approved { color: var(--green); font-weight: 500; }
-  .status-declined { color: var(--red-status); font-weight: 500; }
-  .status-pending { color: var(--amber); font-weight: 500; }
-  .info-note { background: rgba(255,255,255,0.05); border-radius: 8px; padding: 10px 12px; margin-top: 12px; font-size: 0.75rem; color: var(--muted); border-left: 3px solid var(--red); }
-  .rules-box { position: fixed; top: 50%; transform: translateY(-50%); width: 245px; max-height: calc(100vh - 80px); background: #0f0f0f; border: 1px solid rgba(200,16,46,0.85); border-left: 3px solid var(--red); border-radius: 12px; display: flex; flex-direction: column; overflow: hidden; z-index: 50; box-shadow: 0 12px 40px rgba(0,0,0,0.7), 0 0 10px rgba(200,16,46,0.25); }
+  .info-note { background: rgba(255,255,255,0.05); border-radius: 10px; padding: 10px 12px; margin-top: 12px; font-size: 0.7rem; color: var(--muted); border-left: 3px solid var(--red); }
+  
+  /* Hide rules boxes on narrow screens (mobile) */
+  .rules-box { display: none; }
+  @media (min-width: 1200px) { .rules-box { display: flex; position: fixed; top: 50%; transform: translateY(-50%); width: 240px; max-height: calc(100vh - 80px); background: #0f0f0f; border: 1px solid rgba(200,16,46,0.85); border-left: 3px solid var(--red); border-radius: 12px; flex-direction: column; overflow: hidden; z-index: 50; box-shadow: 0 12px 40px rgba(0,0,0,0.7), 0 0 10px rgba(200,16,46,0.25); } 
   .rules-box.left  { left: 20px; }
   .rules-box.right { right: 20px; border-left: 1px solid rgba(200,16,46,0.85); border-right: 3px solid var(--red); }
-  .rules-box-header { flex-shrink: 0; padding: 0.65rem 1rem 0.65rem 1.1rem; border-bottom: 1px solid rgba(200,16,46,0.4); background: rgba(200,16,46,0.12); font-family: 'Bebas Neue', sans-serif; font-size: 1rem; letter-spacing: 0.12em; text-transform: uppercase; color: #ff4060; }
-  .rules-list { list-style: none; padding: 0; margin: 0; overflow-y: auto; flex: 1; scrollbar-width: thin; scrollbar-color: rgba(200,16,46,0.3) transparent; }
-  .rules-list li { padding: 0.42rem 1rem 0.42rem 1.1rem; border-bottom: 1px solid rgba(255,255,255,0.07); font-size: 0.78rem; color: #f0f0f0; display: flex; gap: 8px; align-items: flex-start; line-height: 1.45; }
-  .rules-list li:last-child { border-bottom: none; }
-  .rules-list li .rnum { color: var(--red); font-family: 'Bebas Neue', sans-serif; font-size: 0.95rem; flex-shrink: 0; min-width: 1.2rem; line-height: 1.35; }
-  @media (max-width: 1340px) { .rules-box { display: none; } }
-  .toast { position: fixed; bottom: 2rem; right: 2rem; background: var(--surface); border: 1px solid var(--border); border-left: 3px solid var(--red); border-radius: 10px; padding: 1rem 1.5rem; font-size: 0.88rem; max-width: 300px; z-index: 200; transform: translateY(100px); opacity: 0; transition: all 0.35s cubic-bezier(.34,1.56,.64,1); pointer-events: none; }
+  .rules-box-header { padding: 0.65rem 1rem; border-bottom: 1px solid rgba(200,16,46,0.4); background: rgba(200,16,46,0.12); font-family: 'Bebas Neue', sans-serif; font-size: 1rem; letter-spacing: 0.12em; text-transform: uppercase; color: #ff4060; }
+  .rules-list { list-style: none; padding: 0; margin: 0; overflow-y: auto; }
+  .rules-list li { padding: 0.4rem 1rem; border-bottom: 1px solid rgba(255,255,255,0.07); font-size: 0.75rem; color: #f0f0f0; display: flex; gap: 8px; align-items: flex-start; line-height: 1.4; }
+  .rules-list li .rnum { color: var(--red); font-family: 'Bebas Neue', sans-serif; font-size: 0.9rem; flex-shrink: 0; min-width: 1.2rem; } }
+  
+  .toast { position: fixed; bottom: 1rem; right: 1rem; left: 1rem; background: var(--surface); border: 1px solid var(--border); border-left: 3px solid var(--red); border-radius: 12px; padding: 0.8rem 1rem; font-size: 0.85rem; max-width: 320px; margin: 0 auto; z-index: 200; transform: translateY(100px); opacity: 0; transition: all 0.35s cubic-bezier(.34,1.56,.64,1); pointer-events: none; text-align: center; }
   .toast.show { transform: translateY(0); opacity: 1; }
-  .toast-title { font-weight: 600; margin-bottom: 2px; }
-  .toast-msg { color: var(--muted); font-size: 0.82rem; }
-  ::-webkit-scrollbar { width: 4px; height: 4px; }
+  
+  ::-webkit-scrollbar { width: 3px; }
   ::-webkit-scrollbar-track { background: var(--surface); }
   ::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2px; }
   .section-divider { font-family: 'DM Mono', monospace; font-size: 0.65rem; letter-spacing: 0.12em; color: var(--muted); text-transform: uppercase; margin: 1rem 0 0.7rem; display: flex; align-items: center; gap: 8px; }
@@ -328,26 +329,15 @@
 <div class="entry-screen" id="entryScreen">
   <div class="entry-content">
     <div class="entry-logos">
-      <div class="towers-logo">
-        <img src="https://i.postimg.cc/bwQbG84t/Towers-Logo.png" alt="Towers Hall Logo">
-      </div>
-      <div class="offcampus-logo">
-        <img src="https://i.postimg.cc/9QGT4VsQ/Off-Campus-Logo-(1).png" alt="Off-Campus Logo">
-      </div>
+      <div class="towers-logo"><img src="https://i.postimg.cc/bwQbG84t/Towers-Logo.png" alt="Towers Hall Logo"></div>
+      <div class="offcampus-logo"><img src="https://i.postimg.cc/9QGT4VsQ/Off-Campus-Logo-(1).png" alt="Off-Campus Logo"></div>
     </div>
-    
     <div class="entry-title">Kappa <span>Katalogue</span></div>
     <div class="entry-hall">Elsa Leo‑Rhynie Hall – <span>Commuters' Lounge</span></div>
-    
-    <!-- REMINDER: 5 days in advance notice -->
     <div class="entry-reminder">
       <div class="reminder-icon">⏰</div>
-      <div class="reminder-text">
-        <strong>Requests must be made at least 5 days in advance.</strong><br>
-        Bookings submitted with less notice will not be processed.
-      </div>
+      <div class="reminder-text"><strong>Requests must be made at least 5 days in advance.</strong><br>Bookings submitted with less notice will not be processed.</div>
     </div>
-    
     <div class="entry-buttons">
       <button class="entry-btn red" id="publicBtn">Make a Reservation</button>
       <button class="entry-btn silver" id="adminLoginBtnEntry">Admin Login</button>
@@ -357,17 +347,8 @@
 
 <div class="main-app" id="mainApp">
   <header>
-    <div class="logo">
-      <img src="https://i.postimg.cc/9QGT4VsQ/Off-Campus-Logo-(1).png" alt="Off-Campus Logo" style="width: 36px; height: 36px; object-fit: contain; flex-shrink: 0;">
-      <div class="logo-text">Kappa <span>Katalogue</span></div>
-    </div>
-    <div class="nav-status">
-      <div><span class="status-dot"></span>Open for Reservations</div>
-      <button class="admin-login-btn" id="adminHeaderBtn" style="display: none;" onclick="toggleAdmin()">
-        Admin
-        <span id="adminBadge" class="pending-badge">0</span>
-      </button>
-    </div>
+    <div class="logo"><img src="https://i.postimg.cc/9QGT4VsQ/Off-Campus-Logo-(1).png" alt="Off-Campus Logo" style="width: 32px; height: 32px; object-fit: contain;"><div class="logo-text">Kappa <span>Katalogue</span></div></div>
+    <div class="nav-status"><div><span class="status-dot"></span>Open</div><button class="admin-login-btn" id="adminHeaderBtn" style="display: none;" onclick="toggleAdmin()">Admin<span id="adminBadge" class="pending-badge">0</span></button></div>
   </header>
 
   <div class="hero">
@@ -377,130 +358,85 @@
     <div class="hours-pill"><span class="dot"></span>Regular Hours: 8:30 AM – 4:30 PM, Mon–Fri</div>
   </div>
 
-  <div class="capacity-bar-wrap" style="margin-bottom:2rem;">
-    <div class="cap-info">
-      <div class="cap-label">Today's Lounge Capacity</div>
-      <div class="cap-track"><div class="cap-fill" id="capFill"></div></div>
-    </div>
-    <div>
-      <div class="cap-number"><span id="capUsed">0</span><span>/20</span></div>
-    </div>
+  <div class="capacity-bar-wrap">
+    <div class="cap-info"><div class="cap-label">Today's Lounge Capacity</div><div class="cap-track"><div class="cap-fill" id="capFill"></div></div></div>
+    <div><div class="cap-number"><span id="capUsed">0</span><span>/20</span></div></div>
   </div>
 
   <div class="main">
-    <div class="card" style="animation-delay:0.15s">
+    <div class="card">
       <div class="card-header"><span class="card-title">Reservation Portal</span></div>
       <div class="card-body">
         <div class="tab-bar" id="tabBar">
           <button class="tab-btn active" id="btn-book" onclick="switchTab('book')">New Booking</button>
           <button class="tab-btn" id="btn-manage" onclick="switchTab('manage')">My Bookings</button>
-          <button class="tab-btn" id="btn-admin" style="display:none; color:var(--admin);" onclick="switchTab('admin')">
-            Admin Panel
-            <span id="adminTabBadge" class="tab-badge">0</span>
-          </button>
+          <button class="tab-btn" id="btn-admin" style="display:none; color:var(--admin);" onclick="switchTab('admin')">Admin Panel<span id="adminTabBadge" class="tab-badge">0</span></button>
         </div>
 
         <div id="tab-book" class="tab-pane active">
           <div class="section-divider">Booking Type</div>
           <div class="type-toggle">
-            <div class="type-btn active" id="typeStd" onclick="setBookingType('standard')">🕐 Standard<br><small style="font-size:0.7rem;opacity:0.7">8:30 AM – 4:30 PM</small></div>
-            <div class="type-btn" id="typeSpec" onclick="setBookingType('special')">⭐ Special Request<br><small style="font-size:0.7rem;opacity:0.7">Outside hours</small></div>
+            <div class="type-btn active" id="typeStd" onclick="setBookingType('standard')">🕐 Standard<br><small>8:30 AM – 4:30 PM</small></div>
+            <div class="type-btn" id="typeSpec" onclick="setBookingType('special')">⭐ Special Request<br><small>Outside hours</small></div>
           </div>
           <div class="outside-notice" id="outsideNotice">⚠️ All reservations are subject to approval by the Off-Campus Representative and Administration. You will be contacted at the email you provide.</div>
 
           <div class="section-divider">Your Details</div>
-          <div class="field"><label>Full Name</label><input type="text" id="fname" placeholder="e.g. Jordan Taylor" /></div>
-          <div class="field"><label>ID Number</label><input type="text" id="fid" placeholder="e.g. 620123456" /></div>
-          <div class="field"><label>Email Address</label><input type="email" id="femail" placeholder="e.g. student@gmail.com" /></div>
+          <div class="field"><label>Full Name</label><input type="text" id="fname" placeholder="e.g. Jordan Taylor"></div>
+          <div class="field"><label>ID Number</label><input type="text" id="fid" placeholder="e.g. 620123456"></div>
+          <div class="field"><label>Email Address</label><input type="email" id="femail" placeholder="e.g. student@gmail.com"></div>
 
           <div class="section-divider">Event Details</div>
-          <div class="field"><label>Event Name</label><input type="text" id="eventName" placeholder="e.g. Biology Study Group, Capstone Project Prep, Quiet Reading Session..." /></div>
-          <div class="field">
-            <label>Event Type</label>
-            <select id="eventType">
-              <option value="">— Select an event type —</option>
-              <option value="Study Session">Study Session</option>
-              <option value="Group Work / Project">Group Work / Project</option>
-              <option value="Meeting">Meeting</option>
-              <option value="Rest / Downtime">Rest / Downtime</option>
-              <option value="Hall Committee Event">Hall Committee Event</option>
-              <option value="Social Gathering">Social Gathering</option>
-              <option value="Other">Other</option>
-            </select>
-          </div>
+          <div class="field"><label>Event Name</label><input type="text" id="eventName" placeholder="e.g. Biology Study Group, Capstone Project Prep, Quiet Reading Session..."></div>
+          <div class="field"><label>Event Type</label><select id="eventType"><option value="">— Select an event type —</option><option value="Study Session">Study Session</option><option value="Group Work / Project">Group Work / Project</option><option value="Meeting">Meeting</option><option value="Rest / Downtime">Rest / Downtime</option><option value="Hall Committee Event">Hall Committee Event</option><option value="Social Gathering">Social Gathering</option><option value="Other">Other</option></select></div>
 
           <div id="standardSection">
             <div class="section-divider">Date & Time Slot (1‑hour blocks)</div>
-            <div class="field"><label>Select Date (minimum 5 days in advance – up to 1 month)</label>
-              <div class="date-grid" id="dateGrid"></div>
-            </div>
-            <div class="field">
-              <label>Choose Time Slot (each slot can be booked by only one person/group)</label>
-              <div class="slots-grid" id="slotsGrid"></div>
-              <div class="info-note">
-                📌 <strong>Each slot = 1 hour.</strong> For longer events, book multiple consecutive slots (subject to availability).<br>
-                ⚠️ <strong>2:30 PM – 4:30 PM on the last Thursday of every month are permanently reserved</strong> (shown as "Reserved (Admin)").<br>
-                🗓️ <strong>Reservations require at least 5 days' notice.</strong> You can book up to 30 days ahead.
-              </div>
-            </div>
+            <div class="field"><label>Select Date (minimum 5 days in advance – up to 1 month)</label><div class="date-grid" id="dateGrid"></div></div>
+            <div class="field"><label>Choose Time Slot (each slot can be booked by only one person/group)</label><div class="slots-grid" id="slotsGrid"></div><div class="info-note">📌 <strong>Each slot = 1 hour.</strong> For longer events, book multiple consecutive slots (subject to availability).<br>⚠️ <strong>2:30 PM – 4:30 PM on the last Thursday of every month are permanently reserved</strong> (shown as "Reserved (Admin)").<br>🗓️ <strong>Reservations require at least 5 days' notice.</strong> You can book up to 30 days ahead.</div></div>
           </div>
 
           <div id="specialSection" style="display:none;">
             <div class="section-divider">Requested Date & Time</div>
-            <div class="field"><label>Date (minimum 5 days in advance)</label><input type="date" id="specDate" /></div>
-            <div class="time-row">
-              <div class="field"><label>Start Time</label><input type="time" id="specStart" /></div>
-              <div class="field"><label>End Time</label><input type="time" id="specEnd" /></div>
-            </div>
+            <div class="field"><label>Date (minimum 5 days in advance)</label><input type="date" id="specDate"></div>
+            <div class="time-row"><div class="field"><label>Start Time</label><input type="time" id="specStart"></div><div class="field"><label>End Time</label><input type="time" id="specEnd"></div></div>
             <div class="field"><label>Reason for Outside Hours</label><textarea id="specReason" placeholder="Briefly explain why you need access outside regular hours..."></textarea></div>
           </div>
-
           <button class="btn" onclick="makeBooking()">Submit Reservation →</button>
         </div>
 
         <div id="tab-manage" class="tab-pane">
-          <div class="field"><label>Your Email Address</label><input type="email" id="lookupEmail" placeholder="Enter the email you booked with" /></div>
+          <div class="field"><label>Your Email Address</label><input type="email" id="lookupEmail" placeholder="Enter the email you booked with"></div>
           <button class="btn" onclick="lookupBookings()" style="margin-top:0.5rem">Find My Bookings →</button>
-          <div id="myBookings" style="margin-top:1.5rem"></div>
+          <div id="myBookings" style="margin-top:1.2rem"></div>
         </div>
 
         <div id="tab-admin" class="tab-pane">
-           <p style="font-size:0.85rem; color:var(--muted); margin-bottom:1rem;">Welcome to the Off-Campus Rep Admin Panel. Review, approve, and manage all lounge bookings below.</p>
-           <div id="adminBookingsList"></div>
+          <p style="font-size:0.8rem; color:var(--muted); margin-bottom:1rem;">Welcome to the Off-Campus Rep Admin Panel. Review, approve, and manage all lounge bookings below.</p>
+          <div id="adminBookingsList"></div>
         </div>
       </div>
     </div>
 
-    <div class="card" style="animation-delay:0.25s">
-      <div class="card-header">
-        <span class="card-title">Today's Approved Bookings</span>
-        <span id="todayCount" style="font-family:'DM Mono',monospace;font-size:0.72rem;color:var(--muted)">0 booked</span>
-      </div>
-      <div class="card-body" style="max-height:480px;overflow-y:auto;" id="bookingsList">
-        <div class="empty-state"><div class="empty-icon">📋</div>No approved reservations yet today</div>
-      </div>
+    <div class="card">
+      <div class="card-header"><span class="card-title">Today's Approved Bookings</span><span id="todayCount" style="font-family:'DM Mono',monospace;font-size:0.7rem;color:var(--muted)">0 booked</span></div>
+      <div class="card-body" style="max-height:480px;overflow-y:auto;" id="bookingsList"><div class="empty-state"><div class="empty-icon">📋</div>No approved reservations yet today</div></div>
     </div>
   </div>
 
-  <div class="rules-box left">
-    <div class="rules-box-header">Lounge Guidelines</div>
-    <ul class="rules-list"><li><span class="rnum">1</span>All bookings must be submitted through the reservation portal and approved prior to the event.</li><li><span class="rnum">2</span>Requests should be made at least five days in advance, where possible.</li><li><span class="rnum">3</span>A safety deposit of $3000 JMD must be given to complete booking. The spot is not secure until the deposit is submitted.</li><li><span class="rnum">4</span>The individual making the reservation is the primary contact and responsible for the event and its attendees.</li><li><span class="rnum">5</span>Events must begin and end within the approved reservation period. Overrun will result in forfeiture of 25% of the deposit.</li><li><span class="rnum">6</span>Organizers must ensure participants are respectful and do not disrupt residents, the office, the athenaeum, or the computer room.</li><li><span class="rnum">7</span>The maximum occupancy of the lounge must not be exceeded at any time.</li></ul>
-  </div>
-  <div class="rules-box right">
-    <ul class="rules-list"><li><span class="rnum">8</span>Decorations, displays or equipment may only be installed with prior approval and must not damage lounge property.</li><li><span class="rnum">9</span>Organizers must restore the lounge to its original condition immediately after the event, including removing all materials.</li><li><span class="rnum">10</span>Damage, loss or excessive cleaning costs will result in forfeiture of the safety deposit. Full restoration means the deposit is returned.</li><li><span class="rnum">11</span>Illegal substances, open flames, paint, or spray paint are strictly prohibited.</li><li><span class="rnum">12</span>Commercial activities, fundraising, or events involving external organizations require prior authorization from hall administration.</li><li><span class="rnum">13</span>Hall administration reserves the right to cancel any booking that violates these guidelines or poses a safety risk.</li><li><span class="rnum">14</span>Repeated violations of booking rules may result in suspension of future booking privileges.</li></ul>
-  </div>
+  <div class="rules-box left"><div class="rules-box-header">Lounge Guidelines</div><ul class="rules-list"><li><span class="rnum">1</span>All bookings must be submitted through the reservation portal and approved prior to the event.</li><li><span class="rnum">2</span>Requests should be made at least five days in advance, where possible.</li><li><span class="rnum">3</span>A safety deposit of $3000 JMD must be given to complete booking. The spot is not secure until the deposit is submitted.</li><li><span class="rnum">4</span>The individual making the reservation is the primary contact and responsible for the event and its attendees.</li><li><span class="rnum">5</span>Events must begin and end within the approved reservation period. Overrun will result in forfeiture of 25% of the deposit.</li><li><span class="rnum">6</span>Organizers must ensure participants are respectful and do not disrupt residents, the office, the athenaeum, or the computer room.</li><li><span class="rnum">7</span>The maximum occupancy of the lounge must not be exceeded at any time.</li></ul></div>
+  <div class="rules-box right"><ul class="rules-list"><li><span class="rnum">8</span>Decorations, displays or equipment may only be installed with prior approval and must not damage lounge property.</li><li><span class="rnum">9</span>Organizers must restore the lounge to its original condition immediately after the event, including removing all materials.</li><li><span class="rnum">10</span>Damage, loss or excessive cleaning costs will result in forfeiture of the safety deposit. Full restoration means the deposit is returned.</li><li><span class="rnum">11</span>Illegal substances, open flames, paint, or spray paint are strictly prohibited.</li><li><span class="rnum">12</span>Commercial activities, fundraising, or events involving external organizations require prior authorization from hall administration.</li><li><span class="rnum">13</span>Hall administration reserves the right to cancel any booking that violates these guidelines or poses a safety risk.</li><li><span class="rnum">14</span>Repeated violations of booking rules may result in suspension of future booking privileges.</li></ul></div>
 
   <div class="toast" id="toast"><div class="toast-title" id="toastTitle"></div><div class="toast-msg" id="toastMsg"></div></div>
 </div>
 
 <script>
   // ==========================================
-  // EMAILJS & FIREBASE CONFIGURATION
+  // EMAILJS & FIREBASE CONFIGURATION (unchanged)
   // ==========================================
   emailjs.init("XNplUt8_iHMHhn41G");
   const EMAIL_SERVICE = "service_nr5j46b";
   const EMAIL_TEMPLATE = "template_o71gygk";
-
   const ADMIN_EMAIL = "damzsmith2004@gmail.com";
 
   const firebaseConfig = {
@@ -520,19 +456,15 @@
     console.log("✅ Firebase connected");
   } catch(e) { console.warn("Firebase init failed", e); db = null; }
 
-  // Global state
   let bookings = [];
   let bookingType = 'standard';
   let selectedDate = '';
   let selectedSlot = '';
   let isAdminLoggedIn = false;
   let isPublicMode = false;
-
   const MAX_CAP = 20;
-  const SLOT_MAX = 1;
   const SLOTS = ['8:30 AM','9:30 AM','10:30 AM','11:30 AM','12:30 PM','1:30 PM','2:30 PM','3:30 PM'];
 
-  // DOM elements
   const entryScreen = document.getElementById('entryScreen');
   const mainApp = document.getElementById('mainApp');
   const publicBtn = document.getElementById('publicBtn');
@@ -541,535 +473,49 @@
   const btnBook = document.getElementById('btn-book');
   const btnManage = document.getElementById('btn-manage');
 
-  // Helper functions
-  function getLocalDateString(d) {
-    const year = d.getFullYear();
-    const month = String(d.getMonth() + 1).padStart(2, '0');
-    const day = String(d.getDate()).padStart(2, '0');
-    return `${year}-${month}-${day}`;
-  }
+  function getLocalDateString(d) { const year = d.getFullYear(); const month = String(d.getMonth() + 1).padStart(2, '0'); const day = String(d.getDate()).padStart(2, '0'); return `${year}-${month}-${day}`; }
+  function addDays(date, days) { const result = new Date(date); result.setDate(result.getDate() + days); return getLocalDateString(result); }
+  function formatDateWords(dateStr) { const d = new Date(dateStr + "T12:00:00"); return d.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' }); }
+  function saveToBackend() { if(db) db.ref('kappa_bookings').set(bookings).catch(e=>console.warn); }
+  if(db) { db.ref('kappa_bookings').on('value', (snapshot) => { if(snapshot.exists()) bookings = snapshot.val(); updateCapacity(); buildSlots(); if(isAdminLoggedIn) renderAdminList(); if(document.getElementById('lookupEmail').value) lookupBookings(); updatePendingCount(); }); }
+  function timeToMinutes(timeStr) { let [time, modifier] = timeStr.split(' '); let [hours, minutes] = time.split(':').map(Number); if (modifier === 'PM' && hours !== 12) hours += 12; if (modifier === 'AM' && hours === 12) hours = 0; return hours * 60 + minutes; }
+  function isSlotPassed(slot, dateStr) { const todayStr = getLocalDateString(new Date()); if (dateStr !== todayStr) return false; const now = new Date(); const currentMinutes = now.getHours() * 60 + now.getMinutes(); const slotMinutes = timeToMinutes(slot); return slotMinutes < currentMinutes; }
+  function isLastThursday(dateStr) { const d = new Date(dateStr + "T12:00:00"); if (d.getDay() !== 4) return false; const nextWeek = new Date(d); nextWeek.setDate(d.getDate() + 7); return nextWeek.getMonth() !== d.getMonth(); }
+  function buildSlots() { const grid = document.getElementById('slotsGrid'); if (!grid) return; grid.innerHTML = ''; const isReservedDay = isLastThursday(selectedDate); SLOTS.forEach(slot => { const isBlocked = isReservedDay && (slot === '2:30 PM' || slot === '3:30 PM'); const taken = bookings.some(b => b.date === selectedDate && b.slot === slot && b.type === 'standard'); const passed = isSlotPassed(slot, selectedDate); const div = document.createElement('div'); div.className = 'slot'; if (taken) div.classList.add('taken'); if (isBlocked) div.classList.add('blocked'); if (passed && !isBlocked) div.classList.add('passed'); let statusText = ''; if (isBlocked) statusText = 'Reserved (Admin)'; else if (taken) statusText = 'Booked'; else if (passed) statusText = 'Ended / Unavailable'; else statusText = 'Available'; div.innerHTML = `<div class="slot-time">${slot}</div><div class="slot-status">${statusText}</div>`; if (!taken && !isBlocked && !passed) { div.onclick = () => { selectedSlot = slot; buildSlots(); }; if (slot === selectedSlot) div.classList.add('selected'); } grid.appendChild(div); }); }
 
-  function addDays(date, days) {
-    const result = new Date(date);
-    result.setDate(result.getDate() + days);
-    return getLocalDateString(result);
-  }
-
-  function formatDateWords(dateStr) {
-    const d = new Date(dateStr + "T12:00:00");
-    return d.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
-  }
-
-  function saveToBackend() {
-    if(db) db.ref('kappa_bookings').set(bookings).catch(e=>console.warn);
-  }
-
-  if(db) {
-    db.ref('kappa_bookings').on('value', (snapshot) => {
-      if(snapshot.exists()) bookings = snapshot.val();
-      updateCapacity();
-      buildSlots();
-      if(isAdminLoggedIn) renderAdminList();
-      if(document.getElementById('lookupEmail').value) lookupBookings();
-      updatePendingCount();
-    });
-  }
-
-  function timeToMinutes(timeStr) {
-    let [time, modifier] = timeStr.split(' ');
-    let [hours, minutes] = time.split(':').map(Number);
-    if (modifier === 'PM' && hours !== 12) hours += 12;
-    if (modifier === 'AM' && hours === 12) hours = 0;
-    return hours * 60 + minutes;
-  }
-
-  function isSlotPassed(slot, dateStr) {
-    const todayStr = getLocalDateString(new Date());
-    if (dateStr !== todayStr) return false;
-    const now = new Date();
-    const currentMinutes = now.getHours() * 60 + now.getMinutes();
-    const slotMinutes = timeToMinutes(slot);
-    return slotMinutes < currentMinutes;
-  }
-
-  function isLastThursday(dateStr) {
-    const d = new Date(dateStr + "T12:00:00");
-    if (d.getDay() !== 4) return false;
-    const nextWeek = new Date(d);
-    nextWeek.setDate(d.getDate() + 7);
-    return nextWeek.getMonth() !== d.getMonth();
-  }
-
-  function buildSlots() {
-    const grid = document.getElementById('slotsGrid');
-    if (!grid) return;
-    grid.innerHTML = '';
-    const isReservedDay = isLastThursday(selectedDate);
-    SLOTS.forEach(slot => {
-      const isBlocked = isReservedDay && (slot === '2:30 PM' || slot === '3:30 PM');
-      const taken = bookings.some(b => b.date === selectedDate && b.slot === slot && b.type === 'standard');
-      const passed = isSlotPassed(slot, selectedDate);
-      
-      const div = document.createElement('div');
-      div.className = 'slot';
-      if (taken) div.classList.add('taken');
-      if (isBlocked) div.classList.add('blocked');
-      if (passed && !isBlocked) div.classList.add('passed');
-
-      let statusText = '';
-      if (isBlocked) statusText = 'Reserved (Admin)';
-      else if (taken) statusText = 'Booked';
-      else if (passed) statusText = 'Ended / Unavailable';
-      else statusText = 'Available';
-
-      div.innerHTML = `<div class="slot-time">${slot}</div><div class="slot-status">${statusText}</div>`;
-      
-      if (!taken && !isBlocked && !passed) {
-        div.onclick = () => { selectedSlot = slot; buildSlots(); };
-        if (slot === selectedSlot) div.classList.add('selected');
-      }
-      grid.appendChild(div);
-    });
-  }
-
-  // ==========================================
-  // EMAIL CONTENT BUILDERS (FULL CONTROL)
-  // ==========================================
   function getUserEmailMessage(actionType, entry, formattedDate, timeLabel) {
     if (actionType === 'new') {
-      return `<p>Dear ${entry.name},</p>
-<p>Thank you for choosing the Commuters' Lounge. We truly appreciate your interest.</p>
-<p><span style="color: #f59e0b; font-weight: bold;">Your booking is pending approval.</span><br><br>
-Thank you for submitting your request. It is now under review by the Off‑Campus Representative and Hall Administration. We will notify you as soon as a decision has been made.</p>
-<p>You booked <strong>${entry.eventName}</strong> for <strong>${formattedDate}</strong> at <strong>${timeLabel}</strong> (Student ID: ${entry.studentId}).</p>
-<p>Should you require any further assistance, please do not hesitate to reply to this email.</p>
-<p>Yours sincerely,<br>
-Damani Smith – Off‑Campus Representative 2026‑2027<br>
-Elsa Leo‑Rhynie "Towers" Hall</p>`;
-    } 
-    else if (actionType === 'approve') {
-      return `<p>Dear ${entry.name},</p>
-<p>Thank you for choosing the Commuters' Lounge. We truly appreciate your interest.</p>
-<p><span style="color: #22c55e; font-weight: bold;">Great news – your reservation has been approved!</span><br><br>
-You are confirmed to use the lounge during your requested time slot. Please remember to complete the safety deposit of $3000 JMD (if not already done) to secure your booking. We look forward to hosting you.</p>
-<p>You booked <strong>${entry.eventName}</strong> for <strong>${formattedDate}</strong> at <strong>${timeLabel}</strong> (Student ID: ${entry.studentId}).</p>
-<p>Should you require any further assistance, please do not hesitate to reply to this email.</p>
-<p>Yours sincerely,<br>
-Damani Smith – Off‑Campus Representative 2026‑2027<br>
-Elsa Leo‑Rhynie "Towers" Hall</p>`;
-    } 
-    else if (actionType === 'declined') {
-      return `<p>Dear ${entry.name},</p>
-<p>Thank you for choosing the Commuters' Lounge. We truly appreciate your interest.</p>
-<p><span style="color: #ef4444; font-weight: bold;">We regret to inform you that your reservation has been declined.</span><br><br>
-This decision may be due to capacity limits, scheduling conflicts, or other operational constraints. You are welcome to submit a new request for an alternative date or time. We would be pleased to accommodate you.</p>
-<p>You booked <strong>${entry.eventName}</strong> for <strong>${formattedDate}</strong> at <strong>${timeLabel}</strong> (Student ID: ${entry.studentId}).</p>
-<p>Should you require any further assistance, please do not hesitate to reply to this email.</p>
-<p>Yours sincerely,<br>
-Damani Smith – Off‑Campus Representative 2026‑2027<br>
-Elsa Leo‑Rhynie "Towers" Hall</p>`;
-    }
-    return '';
-  }
-
-  function getAdminEmailMessage(booking, formattedDate, timeLabel) {
-    return `Dear Admin,<br><br>
-🔔 New reservation request from ${booking.name} (${booking.email}).<br><br>
-Event: ${booking.eventName}<br>
-Date: ${formattedDate}<br>
-Time: ${timeLabel}<br>
-Student ID: ${booking.studentId}<br><br>
-Please log in to the admin panel to approve or decline.`;
-  }
-
-  async function sendEmailNotification(entry, actionType) {
-    let timeLabel = entry.type === 'special' ? `${entry.startTime} – ${entry.endTime}` : entry.slot;
-    const formattedDate = formatDateWords(entry.date);
-    const subject = actionType === 'new' ? "Reservation Request Received – Commuters' Lounge" :
-                    actionType === 'approve' ? "Reservation Approved – Commuters' Lounge" :
-                    "Reservation Update – Commuters' Lounge";
-    const messageHtml = getUserEmailMessage(actionType, entry, formattedDate, timeLabel);
-    
-    const templateParams = {
-      to_name: entry.name,
-      to_email: entry.email,
-      student_id: entry.studentId,
-      event_name: entry.eventName,
-      date: formattedDate,
-      time: timeLabel,
-      message: messageHtml,
-      subject: subject
-    };
-    
-    try {
-      await emailjs.send(EMAIL_SERVICE, EMAIL_TEMPLATE, templateParams);
-      console.log(`✅ ${actionType} email sent to user`);
-    } catch (error) {
-      console.error(`❌ ${actionType} user email failed:`, error);
+      return `<p>Dear ${entry.name},</p><p>Thank you for choosing the Commuters' Lounge. We truly appreciate your interest.</p><p><span style="color: #f59e0b; font-weight: bold;">Your booking is pending approval.</span><br><br>Thank you for submitting your request. It is now under review by the Off‑Campus Representative and Hall Administration. We will notify you as soon as a decision has been made.</p><p>You booked <strong>${entry.eventName}</strong> for <strong>${formattedDate}</strong> at <strong>${timeLabel}</strong> (Student ID: ${entry.studentId}).</p><p>Should you require any further assistance, please do not hesitate to reply to this email.</p><p>Yours sincerely,<br>Damani Smith – Off‑Campus Representative 2026‑2027<br>Elsa Leo‑Rhynie "Towers" Hall</p>`;
+    } else if (actionType === 'approve') {
+      return `<p>Dear ${entry.name},</p><p>Thank you for choosing the Commuters' Lounge. We truly appreciate your interest.</p><p><span style="color: #22c55e; font-weight: bold;">Great news – your reservation has been approved!</span><br><br>You are confirmed to use the lounge during your requested time slot. Please remember to complete the safety deposit of $3000 JMD (if not already done) to secure your booking. We look forward to hosting you.</p><p>You booked <strong>${entry.eventName}</strong> for <strong>${formattedDate}</strong> at <strong>${timeLabel}</strong> (Student ID: ${entry.studentId}).</p><p>Should you require any further assistance, please do not hesitate to reply to this email.</p><p>Yours sincerely,<br>Damani Smith – Off‑Campus Representative 2026‑2027<br>Elsa Leo‑Rhynie "Towers" Hall</p>`;
+    } else {
+      return `<p>Dear ${entry.name},</p><p>Thank you for choosing the Commuters' Lounge. We truly appreciate your interest.</p><p><span style="color: #ef4444; font-weight: bold;">We regret to inform you that your reservation has been declined.</span><br><br>This decision may be due to capacity limits, scheduling conflicts, or other operational constraints. You are welcome to submit a new request for an alternative date or time. We would be pleased to accommodate you.</p><p>You booked <strong>${entry.eventName}</strong> for <strong>${formattedDate}</strong> at <strong>${timeLabel}</strong> (Student ID: ${entry.studentId}).</p><p>Should you require any further assistance, please do not hesitate to reply to this email.</p><p>Yours sincerely,<br>Damani Smith – Off‑Campus Representative 2026‑2027<br>Elsa Leo‑Rhynie "Towers" Hall</p>`;
     }
   }
-
-  async function sendAdminNotification(booking) {
-    const timeLabel = booking.type === 'special' ? `${booking.startTime} – ${booking.endTime}` : booking.slot;
-    const formattedDate = formatDateWords(booking.date);
-    const adminMessage = getAdminEmailMessage(booking, formattedDate, timeLabel);
-    
-    const templateParams = {
-      to_name: "Admin",
-      to_email: ADMIN_EMAIL,
-      student_id: booking.studentId,
-      event_name: booking.eventName,
-      date: formattedDate,
-      time: timeLabel,
-      message: adminMessage,
-      subject: "🔔 New Reservation Request – Action Required"
-    };
-    
-    try {
-      await emailjs.send(EMAIL_SERVICE, EMAIL_TEMPLATE, templateParams);
-      console.log("✅ Admin notification email sent");
-    } catch (error) {
-      console.error("❌ Admin email failed:", error);
-    }
-  }
-
-  function showDesktopNotification(booking) {
-    if (!isAdminLoggedIn) return;
-    if (!("Notification" in window)) return;
-    if (Notification.permission === "granted") {
-      new Notification("🔔 New Reservation Request", {
-        body: `${booking.name} requested ${booking.eventName} on ${booking.date} at ${booking.slot || booking.startTime + '-' + booking.endTime}`,
-        icon: "https://cdn-icons-png.flaticon.com/512/190/190411.png"
-      });
-    }
-  }
-
-  function updatePendingCount() {
-    if (!isAdminLoggedIn) return;
-    const pendingCount = bookings.filter(b => b.status === 'Pending Approval').length;
-    const adminBadge = document.getElementById('adminBadge');
-    const adminTabBadge = document.getElementById('adminTabBadge');
-    if (adminBadge) {
-      if (pendingCount > 0) {
-        adminBadge.textContent = pendingCount;
-        adminBadge.style.display = 'inline-block';
-      } else {
-        adminBadge.style.display = 'none';
-      }
-    }
-    if (adminTabBadge) {
-      if (pendingCount > 0) {
-        adminTabBadge.textContent = pendingCount;
-        adminTabBadge.style.display = 'inline-block';
-      } else {
-        adminTabBadge.style.display = 'none';
-      }
-    }
-  }
-
-  function setBookingType(type) {
-    bookingType = type;
-    document.getElementById('typeStd').classList.toggle('active', type === 'standard');
-    document.getElementById('typeSpec').classList.toggle('active', type === 'special');
-    document.getElementById('standardSection').style.display = type === 'standard' ? '' : 'none';
-    document.getElementById('specialSection').style.display = type === 'special' ? '' : 'none';
-    document.getElementById('outsideNotice').style.display = 'block'; 
-  }
-
-  function buildDateGrid() {
-    const grid = document.getElementById('dateGrid');
-    if (!grid) return;
-    grid.innerHTML = '';
-    const days = ['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
-    const today = new Date();
-    const minAdvance = 5;
-    const numberOfDays = 30;
-    let firstActiveIndex = -1;
-    
-    for (let i = 0; i < numberOfDays; i++) {
-      const d = new Date();
-      d.setDate(today.getDate() + minAdvance + i);
-      const dateStr = getLocalDateString(d);
-      const chip = document.createElement('div');
-      chip.className = 'date-chip';
-      chip.innerHTML = `<div class="dc-day">${days[d.getDay()]}</div><div class="dc-date">${d.getDate()}</div>`;
-      chip.onclick = () => {
-        document.querySelectorAll('.date-chip').forEach(c => c.classList.remove('active'));
-        chip.classList.add('active');
-        selectedDate = dateStr;
-        selectedSlot = '';
-        buildSlots();
-      };
-      grid.appendChild(chip);
-      if (firstActiveIndex === -1) {
-        firstActiveIndex = i;
-        chip.classList.add('active');
-        selectedDate = dateStr;
-      }
-    }
-    const minDateForSpecial = addDays(today, minAdvance);
-    document.getElementById('specDate').min = minDateForSpecial;
-    if (!document.getElementById('specDate').value) {
-      document.getElementById('specDate').value = minDateForSpecial;
-    }
-    buildSlots();
-  }
-
-  function updateCapacity() {
-    const today = getLocalDateString(new Date());
-    const used = bookings.filter(b => b.date === today && b.type === 'standard').length;
-    document.getElementById('capUsed').textContent = used;
-    document.getElementById('capFill').style.width = Math.min((used / MAX_CAP) * 100, 100) + '%';
-    const todayList = bookings.filter(b => b.date === today && b.status === 'Approved');
-    document.getElementById('todayCount').textContent = `${todayList.length} booked`;
-    renderBookingsList(todayList);
-  }
-
-  function renderBookingsList(list) {
-    const el = document.getElementById('bookingsList');
-    if (!el) return;
-    if (!list.length) {
-      el.innerHTML = '<div class="empty-state"><div class="empty-icon">📋</div>No approved reservations yet today</div>';
-      return;
-    }
-    el.innerHTML = list.map(b => {
-      const isSpecial = b.type === 'special';
-      const timeLabel = isSpecial ? `${b.startTime} – ${b.endTime}` : b.slot;
-      return `<div class="booking-item"><div class="booking-avatar">${b.name.charAt(0).toUpperCase()}</div><div class="booking-info"><div class="booking-name">${b.name}</div><div class="booking-meta">${timeLabel} · ${b.eventType}</div><div class="booking-meta2">${b.eventName}</div></div><div class="booking-tag ${isSpecial ? 'tag-special' : 'tag-standard'}">${isSpecial ? 'SPECIAL' : 'STD'}</div></div>`;
-    }).join('');
-  }
-
+  function getAdminEmailMessage(booking, formattedDate, timeLabel) { return `Dear Admin,<br><br>🔔 New reservation request from ${booking.name} (${booking.email}).<br><br>Event: ${booking.eventName}<br>Date: ${formattedDate}<br>Time: ${timeLabel}<br>Student ID: ${booking.studentId}<br><br>Please log in to the admin panel to approve or decline.`; }
+  async function sendEmailNotification(entry, actionType) { let timeLabel = entry.type === 'special' ? `${entry.startTime} – ${entry.endTime}` : entry.slot; const formattedDate = formatDateWords(entry.date); const subject = actionType === 'new' ? "Reservation Request Received – Commuters' Lounge" : actionType === 'approve' ? "Reservation Approved – Commuters' Lounge" : "Reservation Update – Commuters' Lounge"; const messageHtml = getUserEmailMessage(actionType, entry, formattedDate, timeLabel); const templateParams = { to_name: entry.name, to_email: entry.email, student_id: entry.studentId, event_name: entry.eventName, date: formattedDate, time: timeLabel, message: messageHtml, subject: subject }; try { await emailjs.send(EMAIL_SERVICE, EMAIL_TEMPLATE, templateParams); console.log(`✅ ${actionType} email sent to user`); } catch (error) { console.error(`❌ ${actionType} user email failed:`, error); } }
+  async function sendAdminNotification(booking) { const timeLabel = booking.type === 'special' ? `${booking.startTime} – ${booking.endTime}` : booking.slot; const formattedDate = formatDateWords(booking.date); const adminMessage = getAdminEmailMessage(booking, formattedDate, timeLabel); const templateParams = { to_name: "Admin", to_email: ADMIN_EMAIL, student_id: booking.studentId, event_name: booking.eventName, date: formattedDate, time: timeLabel, message: adminMessage, subject: "🔔 New Reservation Request – Action Required" }; try { await emailjs.send(EMAIL_SERVICE, EMAIL_TEMPLATE, templateParams); console.log("✅ Admin notification email sent"); } catch (error) { console.error("❌ Admin email failed:", error); } }
+  function showDesktopNotification(booking) { if (!isAdminLoggedIn) return; if (!("Notification" in window)) return; if (Notification.permission === "granted") { new Notification("🔔 New Reservation Request", { body: `${booking.name} requested ${booking.eventName} on ${booking.date} at ${booking.slot || booking.startTime + '-' + booking.endTime}`, icon: "https://cdn-icons-png.flaticon.com/512/190/190411.png" }); } }
+  function updatePendingCount() { if (!isAdminLoggedIn) return; const pendingCount = bookings.filter(b => b.status === 'Pending Approval').length; const adminBadge = document.getElementById('adminBadge'); const adminTabBadge = document.getElementById('adminTabBadge'); if (adminBadge) { if (pendingCount > 0) { adminBadge.textContent = pendingCount; adminBadge.style.display = 'inline-block'; } else { adminBadge.style.display = 'none'; } } if (adminTabBadge) { if (pendingCount > 0) { adminTabBadge.textContent = pendingCount; adminTabBadge.style.display = 'inline-block'; } else { adminTabBadge.style.display = 'none'; } } }
+  function setBookingType(type) { bookingType = type; document.getElementById('typeStd').classList.toggle('active', type === 'standard'); document.getElementById('typeSpec').classList.toggle('active', type === 'special'); document.getElementById('standardSection').style.display = type === 'standard' ? '' : 'none'; document.getElementById('specialSection').style.display = type === 'special' ? '' : 'none'; document.getElementById('outsideNotice').style.display = 'block'; }
+  function buildDateGrid() { const grid = document.getElementById('dateGrid'); if (!grid) return; grid.innerHTML = ''; const days = ['Sun','Mon','Tue','Wed','Thu','Fri','Sat']; const today = new Date(); const minAdvance = 5; const numberOfDays = 30; let firstActiveIndex = -1; for (let i = 0; i < numberOfDays; i++) { const d = new Date(); d.setDate(today.getDate() + minAdvance + i); const dateStr = getLocalDateString(d); const chip = document.createElement('div'); chip.className = 'date-chip'; chip.innerHTML = `<div class="dc-day">${days[d.getDay()]}</div><div class="dc-date">${d.getDate()}</div>`; chip.onclick = () => { document.querySelectorAll('.date-chip').forEach(c => c.classList.remove('active')); chip.classList.add('active'); selectedDate = dateStr; selectedSlot = ''; buildSlots(); }; grid.appendChild(chip); if (firstActiveIndex === -1) { firstActiveIndex = i; chip.classList.add('active'); selectedDate = dateStr; } } const minDateForSpecial = addDays(today, minAdvance); document.getElementById('specDate').min = minDateForSpecial; if (!document.getElementById('specDate').value) { document.getElementById('specDate').value = minDateForSpecial; } buildSlots(); }
+  function updateCapacity() { const today = getLocalDateString(new Date()); const used = bookings.filter(b => b.date === today && b.type === 'standard').length; document.getElementById('capUsed').textContent = used; document.getElementById('capFill').style.width = Math.min((used / MAX_CAP) * 100, 100) + '%'; const todayList = bookings.filter(b => b.date === today && b.status === 'Approved'); document.getElementById('todayCount').textContent = `${todayList.length} booked`; renderBookingsList(todayList); }
+  function renderBookingsList(list) { const el = document.getElementById('bookingsList'); if (!el) return; if (!list.length) { el.innerHTML = '<div class="empty-state"><div class="empty-icon">📋</div>No approved reservations yet today</div>'; return; } el.innerHTML = list.map(b => { const isSpecial = b.type === 'special'; const timeLabel = isSpecial ? `${b.startTime} – ${b.endTime}` : b.slot; return `<div class="booking-item"><div class="booking-avatar">${b.name.charAt(0).toUpperCase()}</div><div class="booking-info"><div class="booking-name">${b.name}</div><div class="booking-meta">${timeLabel} · ${b.eventType}</div><div class="booking-meta2">${b.eventName}</div></div><div class="booking-tag ${isSpecial ? 'tag-special' : 'tag-standard'}">${isSpecial ? 'SPECIAL' : 'STD'}</div></div>`; }).join(''); }
   function isValidEmail(e) { return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(e); }
+  async function makeBooking() { const name = document.getElementById('fname').value.trim(); const studentId = document.getElementById('fid').value.trim(); const email = document.getElementById('femail').value.trim(); const eventName = document.getElementById('eventName').value.trim(); const eventType = document.getElementById('eventType').value; if (!name || !studentId || !email || !isValidEmail(email) || !eventName || !eventType) return showToast('Missing Info', 'Please fill out all required fields.', false); let entry = { name, studentId, email, eventName, eventType, type: bookingType, id: Date.now(), status: 'Pending Approval' }; if (bookingType === 'standard') { if (!selectedSlot) return showToast('Missing Info', 'Please choose a time slot.', false); const today = new Date(); const selectedDateObj = new Date(selectedDate + "T12:00:00"); const diffDays = Math.ceil((selectedDateObj - today) / (1000 * 60 * 60 * 24)); if (diffDays < 5) return showToast('Too Early', 'Reservations must be made at least 5 days in advance.', false); const taken = bookings.some(b => b.date === selectedDate && b.slot === selectedSlot && b.type === 'standard'); if (taken) return showToast('Slot Taken', 'This time slot has already been booked by someone else.', false); if (isLastThursday(selectedDate) && (selectedSlot === '2:30 PM' || selectedSlot === '3:30 PM')) return showToast('Unavailable', 'This time slot is permanently blocked (last Thursday).', false); if (isSlotPassed(selectedSlot, selectedDate)) return showToast('Slot Ended', 'This time slot has already passed for today.', false); const dupe = bookings.find(b => b.email === email && b.date === selectedDate && b.slot === selectedSlot); if (dupe) return showToast('Already Booked', 'You already have this slot reserved.', false); entry.date = selectedDate; entry.slot = selectedSlot; } else { const specDate = document.getElementById('specDate').value; const specStart = document.getElementById('specStart').value; const specEnd = document.getElementById('specEnd').value; const specReason = document.getElementById('specReason').value.trim(); if (!specDate || !specStart || !specEnd || !specReason) return showToast('Missing Info', 'Please complete the special request form.', false); if (specStart >= specEnd) return showToast('Invalid Time', 'End time must be after start time.', false); const today = new Date(); const selectedDateObj = new Date(specDate + "T12:00:00"); const diffDays = Math.ceil((selectedDateObj - today) / (1000 * 60 * 60 * 24)); if (diffDays < 5) return showToast('Too Early', 'Special requests must also be made at least 5 days in advance.', false); entry.date = specDate; entry.startTime = formatTime(specStart); entry.endTime = formatTime(specEnd); entry.reason = specReason; } bookings.push(entry); saveToBackend(); await sendEmailNotification(entry, 'new'); await sendAdminNotification(entry); showDesktopNotification(entry); updatePendingCount(); document.getElementById('fname').value = ''; document.getElementById('fid').value = ''; document.getElementById('femail').value = ''; document.getElementById('eventName').value = ''; document.getElementById('eventType').value = ''; document.getElementById('specReason').value = ''; document.getElementById('specStart').value = ''; document.getElementById('specEnd').value = ''; selectedSlot = ''; buildSlots(); showToast('Success!', 'Request sent for approval.', true); }
+  function formatTime(t) { const [h, m] = t.split(':').map(Number); const period = h >= 12 ? 'PM' : 'AM'; const hr = h % 12 || 12; return `${hr}:${m.toString().padStart(2,'0')} ${period}`; }
+  function lookupBookings() { const email = document.getElementById('lookupEmail').value.trim(); if (!email) return; const myB = bookings.filter(b => b.email.toLowerCase() === email.toLowerCase()); const el = document.getElementById('myBookings'); if (!el) return; if (!myB.length) { el.innerHTML = '<div class="empty-state">No bookings found.</div>'; return; } el.innerHTML = myB.map(b => { const timeLabel = b.type === 'special' ? `${b.startTime} – ${b.endTime}` : b.slot; let statusClass = ''; if (b.status === 'Approved') statusClass = 'status-approved'; else if (b.status === 'Declined') statusClass = 'status-declined'; else statusClass = 'status-pending'; const statusBadge = `<span class="${statusClass}" style="font-size:0.7rem;">[${b.status}]</span>`; return `<div class="booking-item"><div class="booking-avatar">${b.name.charAt(0)}</div><div class="booking-info"><div class="booking-name">${b.eventName}</div><div class="booking-meta">${b.date} · ${timeLabel}</div><div class="booking-meta2">${b.eventType} ${statusBadge}</div></div><button class="action-btn" onclick="cancelBooking(${b.id})">Cancel</button></div>`; }).join(''); }
+  function cancelBooking(id) { bookings = bookings.filter(b => b.id !== id); saveToBackend(); showToast('Booking Removed', 'Reservation updated.', true); updatePendingCount(); }
 
-  async function makeBooking() {
-    const name = document.getElementById('fname').value.trim();
-    const studentId = document.getElementById('fid').value.trim();
-    const email = document.getElementById('femail').value.trim();
-    const eventName = document.getElementById('eventName').value.trim();
-    const eventType = document.getElementById('eventType').value;
-
-    if (!name || !studentId || !email || !isValidEmail(email) || !eventName || !eventType) {
-      return showToast('Missing Info', 'Please fill out all required fields.', false);
-    }
-
-    let entry = { name, studentId, email, eventName, eventType, type: bookingType, id: Date.now(), status: 'Pending Approval' };
-
-    if (bookingType === 'standard') {
-      if (!selectedSlot) return showToast('Missing Info', 'Please choose a time slot.', false);
-      const today = new Date();
-      const selectedDateObj = new Date(selectedDate + "T12:00:00");
-      const diffDays = Math.ceil((selectedDateObj - today) / (1000 * 60 * 60 * 24));
-      if (diffDays < 5) return showToast('Too Early', 'Reservations must be made at least 5 days in advance.', false);
-      
-      const taken = bookings.some(b => b.date === selectedDate && b.slot === selectedSlot && b.type === 'standard');
-      if (taken) return showToast('Slot Taken', 'This time slot has already been booked by someone else.', false);
-      if (isLastThursday(selectedDate) && (selectedSlot === '2:30 PM' || selectedSlot === '3:30 PM'))
-        return showToast('Unavailable', 'This time slot is permanently blocked (last Thursday).', false);
-      if (isSlotPassed(selectedSlot, selectedDate))
-        return showToast('Slot Ended', 'This time slot has already passed for today.', false);
-      const dupe = bookings.find(b => b.email === email && b.date === selectedDate && b.slot === selectedSlot);
-      if (dupe) return showToast('Already Booked', 'You already have this slot reserved.', false);
-      entry.date = selectedDate;
-      entry.slot = selectedSlot;
-    } else {
-      const specDate = document.getElementById('specDate').value;
-      const specStart = document.getElementById('specStart').value;
-      const specEnd = document.getElementById('specEnd').value;
-      const specReason = document.getElementById('specReason').value.trim();
-      if (!specDate || !specStart || !specEnd || !specReason) return showToast('Missing Info', 'Please complete the special request form.', false);
-      if (specStart >= specEnd) return showToast('Invalid Time', 'End time must be after start time.', false);
-      const today = new Date();
-      const selectedDateObj = new Date(specDate + "T12:00:00");
-      const diffDays = Math.ceil((selectedDateObj - today) / (1000 * 60 * 60 * 24));
-      if (diffDays < 5) return showToast('Too Early', 'Special requests must also be made at least 5 days in advance.', false);
-      
-      entry.date = specDate;
-      entry.startTime = formatTime(specStart);
-      entry.endTime = formatTime(specEnd);
-      entry.reason = specReason;
-    }
-
-    bookings.push(entry);
-    saveToBackend();
-    await sendEmailNotification(entry, 'new');
-    await sendAdminNotification(entry);
-    showDesktopNotification(entry);
-    updatePendingCount();
-
-    document.getElementById('fname').value = '';
-    document.getElementById('fid').value = '';
-    document.getElementById('femail').value = '';
-    document.getElementById('eventName').value = '';
-    document.getElementById('eventType').value = '';
-    document.getElementById('specReason').value = '';
-    document.getElementById('specStart').value = '';
-    document.getElementById('specEnd').value = '';
-    selectedSlot = '';
-    buildSlots();
-    showToast('Success!', 'Request sent for approval.', true);
-  }
-
-  function formatTime(t) {
-    const [h, m] = t.split(':').map(Number);
-    const period = h >= 12 ? 'PM' : 'AM';
-    const hr = h % 12 || 12;
-    return `${hr}:${m.toString().padStart(2,'0')} ${period}`;
-  }
-
-  function lookupBookings() {
-    const email = document.getElementById('lookupEmail').value.trim();
-    if (!email) return;
-    const myB = bookings.filter(b => b.email.toLowerCase() === email.toLowerCase());
-    const el = document.getElementById('myBookings');
-    if (!el) return;
-    if (!myB.length) { el.innerHTML = '<div class="empty-state">No bookings found.</div>'; return; }
-    el.innerHTML = myB.map(b => {
-      const timeLabel = b.type === 'special' ? `${b.startTime} – ${b.endTime}` : b.slot;
-      let statusClass = '';
-      if (b.status === 'Approved') statusClass = 'status-approved';
-      else if (b.status === 'Declined') statusClass = 'status-declined';
-      else statusClass = 'status-pending';
-      const statusBadge = `<span class="${statusClass}" style="font-size:0.7rem;">[${b.status}]</span>`;
-      return `<div class="booking-item"><div class="booking-avatar">${b.name.charAt(0)}</div><div class="booking-info"><div class="booking-name">${b.eventName}</div><div class="booking-meta">${b.date} · ${timeLabel}</div><div class="booking-meta2">${b.eventType} ${statusBadge}</div></div><button class="action-btn" onclick="cancelBooking(${b.id})">Cancel</button></div>`;
-    }).join('');
-  }
-
-  function cancelBooking(id) {
-    bookings = bookings.filter(b => b.id !== id);
-    saveToBackend();
-    showToast('Booking Removed', 'Reservation updated.', true);
-    updatePendingCount();
-  }
-
-  // Entry screen handlers
-  publicBtn.addEventListener('click', () => {
-    isPublicMode = true;
-    isAdminLoggedIn = false;
-    entryScreen.classList.add('hide');
-    setTimeout(() => {
-      entryScreen.style.display = 'none';
-      mainApp.classList.add('visible');
-      adminHeaderBtn.style.display = 'none';
-      btnBook.style.display = 'block';
-      btnManage.style.display = 'block';
-      document.getElementById('btn-admin').style.display = 'none';
-      switchTab('book');
-    }, 500);
-    buildDateGrid();
-  });
-
-  adminLoginBtnEntry.addEventListener('click', () => {
-    const pwd = prompt("Enter Admin Password:");
-    if (pwd === "081604") {
-      isAdminLoggedIn = true;
-      isPublicMode = false;
-      entryScreen.classList.add('hide');
-      setTimeout(() => {
-        entryScreen.style.display = 'none';
-        mainApp.classList.add('visible');
-        adminHeaderBtn.style.display = 'block';
-        btnBook.style.display = 'none';
-        btnManage.style.display = 'none';
-        document.getElementById('btn-admin').style.display = 'block';
-        if ("Notification" in window) Notification.requestPermission();
-        switchTab('admin');
-        renderAdminList();
-        updatePendingCount();
-        showToast('Admin Access', 'Welcome to the dashboard.', true);
-      }, 500);
-      buildDateGrid();
-    } else {
-      showToast('Access Denied', 'Incorrect password.', false);
-    }
-  });
-
-  function toggleAdmin() {
-    if (!isAdminLoggedIn) {
-      const pwd = prompt("Enter Admin Password:");
-      if (pwd === "081604") {
-        isAdminLoggedIn = true;
-        btnBook.style.display = 'none';
-        btnManage.style.display = 'none';
-        document.getElementById('btn-admin').style.display = 'block';
-        switchTab('admin');
-        renderAdminList();
-        updatePendingCount();
-        showToast('Admin Access', 'Welcome to the dashboard.', true);
-        if ("Notification" in window) Notification.requestPermission();
-      } else showToast('Access Denied', 'Incorrect password.', false);
-    } else {
-      switchTab('admin');
-      renderAdminList();
-    }
-  }
-
-  async function approveBooking(id) {
-    const idx = bookings.findIndex(b => b.id === id);
-    if(idx !== -1) {
-      bookings[idx].status = 'Approved';
-      saveToBackend();
-      await sendEmailNotification(bookings[idx], 'approve');
-      showToast('Approved', 'Reservation approved.', true);
-      updatePendingCount();
-    }
-  }
-
-  async function declineBooking(id) {
-    const idx = bookings.findIndex(b => b.id === id);
-    if(idx !== -1) {
-      const entry = bookings[idx];
-      await sendEmailNotification(entry, 'declined');
-      bookings.splice(idx, 1);
-      saveToBackend();
-      showToast('Declined', 'Reservation declined and removed.', true);
-      updatePendingCount();
-    }
-  }
-
-  function renderAdminList() {
-    const el = document.getElementById('adminBookingsList');
-    if (!el) return;
-    if (!bookings.length) { el.innerHTML = '<div class="empty-state">No bookings in the system.</div>'; return; }
-    const sorted = [...bookings].sort((a, b) => (a.status === 'Pending Approval' ? -1 : 1));
-    el.innerHTML = sorted.map(b => {
-      const isSpecial = b.type === 'special';
-      const timeLabel = isSpecial ? `${b.startTime} – ${b.endTime}` : b.slot;
-      let statusClass = '';
-      if (b.status === 'Approved') statusClass = 'status-approved';
-      else if (b.status === 'Declined') statusClass = 'status-declined';
-      else statusClass = 'status-pending';
-      const statusBadge = `<span class="${statusClass}" style="font-size:0.7rem;">[${b.status}]</span>`;
-      let actions = '';
-      if(b.status === 'Pending Approval') {
-        actions = `<button class="action-btn approve" onclick="approveBooking(${b.id})">Approve</button><button class="action-btn" onclick="declineBooking(${b.id})">Decline</button>`;
-      } else {
-        actions = `<button class="action-btn" onclick="cancelBooking(${b.id})">Delete</button>`;
-      }
-      return `<div class="booking-item"><div class="booking-info"><div class="booking-name">${b.name} <span style="font-weight:normal;color:var(--muted)">(${b.studentId})</span></div><div class="booking-meta">${b.date} · ${timeLabel} · ${b.email}</div><div class="booking-meta2">${b.eventName} (${b.eventType}) ${statusBadge}</div>${isSpecial ? `<div style="font-size:0.7rem; color:var(--muted); margin-top:4px;"><i>Reason: ${b.reason}</i></div>` : ''}</div><div style="display:flex; gap:5px; align-items:center;">${actions}</div></div>`;
-    }).join('');
-  }
-
-  function switchTab(tab) {
-    document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
-    document.getElementById('btn-' + tab).classList.add('active');
-    document.getElementById('tab-book').classList.toggle('active', tab === 'book');
-    document.getElementById('tab-manage').classList.toggle('active', tab === 'manage');
-    document.getElementById('tab-admin').classList.toggle('active', tab === 'admin');
-    if (tab === 'admin' && isAdminLoggedIn) updatePendingCount();
-  }
-
-  function showToast(title, msg, success) {
-    const t = document.getElementById('toast');
-    if (!t) return;
-    document.getElementById('toastTitle').textContent = title;
-    document.getElementById('toastMsg').textContent = msg;
-    t.style.borderLeftColor = success ? '#22c55e' : 'var(--red)';
-    t.classList.add('show');
-    setTimeout(() => t.classList.remove('show'), 3500);
-  }
-
+  publicBtn.addEventListener('click', () => { isPublicMode = true; isAdminLoggedIn = false; entryScreen.classList.add('hide'); setTimeout(() => { entryScreen.style.display = 'none'; mainApp.classList.add('visible'); adminHeaderBtn.style.display = 'none'; btnBook.style.display = 'block'; btnManage.style.display = 'block'; document.getElementById('btn-admin').style.display = 'none'; switchTab('book'); }, 500); buildDateGrid(); });
+  adminLoginBtnEntry.addEventListener('click', () => { const pwd = prompt("Enter Admin Password:"); if (pwd === "081604") { isAdminLoggedIn = true; isPublicMode = false; entryScreen.classList.add('hide'); setTimeout(() => { entryScreen.style.display = 'none'; mainApp.classList.add('visible'); adminHeaderBtn.style.display = 'block'; btnBook.style.display = 'none'; btnManage.style.display = 'none'; document.getElementById('btn-admin').style.display = 'block'; if ("Notification" in window) Notification.requestPermission(); switchTab('admin'); renderAdminList(); updatePendingCount(); showToast('Admin Access', 'Welcome to the dashboard.', true); }, 500); buildDateGrid(); } else { showToast('Access Denied', 'Incorrect password.', false); } });
+  function toggleAdmin() { if (!isAdminLoggedIn) { const pwd = prompt("Enter Admin Password:"); if (pwd === "081604") { isAdminLoggedIn = true; btnBook.style.display = 'none'; btnManage.style.display = 'none'; document.getElementById('btn-admin').style.display = 'block'; switchTab('admin'); renderAdminList(); updatePendingCount(); showToast('Admin Access', 'Welcome to the dashboard.', true); if ("Notification" in window) Notification.requestPermission(); } else showToast('Access Denied', 'Incorrect password.', false); } else { switchTab('admin'); renderAdminList(); } }
+  async function approveBooking(id) { const idx = bookings.findIndex(b => b.id === id); if(idx !== -1) { bookings[idx].status = 'Approved'; saveToBackend(); await sendEmailNotification(bookings[idx], 'approve'); showToast('Approved', 'Reservation approved.', true); updatePendingCount(); } }
+  async function declineBooking(id) { const idx = bookings.findIndex(b => b.id === id); if(idx !== -1) { const entry = bookings[idx]; await sendEmailNotification(entry, 'declined'); bookings.splice(idx, 1); saveToBackend(); showToast('Declined', 'Reservation declined and removed.', true); updatePendingCount(); } }
+  function renderAdminList() { const el = document.getElementById('adminBookingsList'); if (!el) return; if (!bookings.length) { el.innerHTML = '<div class="empty-state">No bookings in the system.</div>'; return; } const sorted = [...bookings].sort((a, b) => (a.status === 'Pending Approval' ? -1 : 1)); el.innerHTML = sorted.map(b => { const isSpecial = b.type === 'special'; const timeLabel = isSpecial ? `${b.startTime} – ${b.endTime}` : b.slot; let statusClass = ''; if (b.status === 'Approved') statusClass = 'status-approved'; else if (b.status === 'Declined') statusClass = 'status-declined'; else statusClass = 'status-pending'; const statusBadge = `<span class="${statusClass}" style="font-size:0.7rem;">[${b.status}]</span>`; let actions = ''; if(b.status === 'Pending Approval') { actions = `<button class="action-btn approve" onclick="approveBooking(${b.id})">Approve</button><button class="action-btn" onclick="declineBooking(${b.id})">Decline</button>`; } else { actions = `<button class="action-btn" onclick="cancelBooking(${b.id})">Delete</button>`; } return `<div class="booking-item"><div class="booking-info"><div class="booking-name">${b.name} <span style="font-weight:normal;color:var(--muted)">(${b.studentId})</span></div><div class="booking-meta">${b.date} · ${timeLabel} · ${b.email}</div><div class="booking-meta2">${b.eventName} (${b.eventType}) ${statusBadge}</div>${isSpecial ? `<div style="font-size:0.7rem; color:var(--muted); margin-top:4px;"><i>Reason: ${b.reason}</i></div>` : ''}</div><div style="display:flex; gap:5px; align-items:center;">${actions}</div></div>`; }).join(''); }
+  function switchTab(tab) { document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active')); document.getElementById('btn-' + tab).classList.add('active'); document.getElementById('tab-book').classList.toggle('active', tab === 'book'); document.getElementById('tab-manage').classList.toggle('active', tab === 'manage'); document.getElementById('tab-admin').classList.toggle('active', tab === 'admin'); if (tab === 'admin' && isAdminLoggedIn) updatePendingCount(); }
+  function showToast(title, msg, success) { const t = document.getElementById('toast'); if (!t) return; document.getElementById('toastTitle').textContent = title; document.getElementById('toastMsg').textContent = msg; t.style.borderLeftColor = success ? '#22c55e' : 'var(--red)'; t.classList.add('show'); setTimeout(() => t.classList.remove('show'), 3500); }
   setBookingType('standard');
-  // buildDateGrid called after entry choice
 </script>
 </body>
 </html>
