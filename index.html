@@ -467,7 +467,7 @@
     <div class="entry-title">Kappa <span>Katalogue</span></div>
     <div class="entry-hall">Elsa Leo‑Rhynie Hall – <span>Commuters' Lounge</span></div>
     <div class="entry-notices">
-      <div class="entry-notice-item"><strong>Advance Notice Constraint</strong>All reservation requests must be finalized at least 5 days prior to the desired date. Applications submitted past this window cannot be accommodated.</div>
+      <div class="entry-notice-item"><strong>Advance Notice Constraint</strong>All reservation requests must be finalized at least 3 days prior to the desired date. Applications submitted past this window cannot be accommodated.</div>
       <div class="entry-notice-item critical"><strong>Required Review & Consent</strong>Applicants are required to thoroughly read, evaluate, and explicitly consent to all rules outlined in the Lounge Guidelines before managing any submission.</div>
     </div>
     <div class="entry-buttons">
@@ -524,13 +524,13 @@
 
           <div id="standardSection">
             <div class="section-divider">Date & Time Slot (1‑hour blocks)</div>
-            <div class="field"><label>Select Date (minimum 5 days in advance – up to 1 month)</label><div class="date-grid" id="dateGrid"></div></div>
-            <div class="field"><label>Choose Time Slot (click to select multiple consecutive slots)</label><div class="slots-grid" id="slotsGrid"></div><div class="info-note">Each slot = 1 hour. You can select multiple <strong>consecutive</strong> slots for longer events. Selected slots will be highlighted in red.<br>2:30 PM – 4:30 PM on the last Thursday of every month are permanently reserved (shown as "Reserved (Admin)").<br>Reservations require at least 5 days' notice. You can book up to 30 days ahead.</div></div>
+            <div class="field"><label>Select Date (minimum 3 days in advance – up to 1 month)</label><div class="date-grid" id="dateGrid"></div></div>
+            <div class="field"><label>Choose Time Slot (click to select multiple consecutive slots)</label><div class="slots-grid" id="slotsGrid"></div><div class="info-note">Each slot = 30 minutes. You can select multiple <strong>consecutive</strong> slots for longer events. Selected slots will be highlighted in red.<br>2:30 PM – 4:30 PM on the last Thursday of every month are permanently reserved (shown as "Reserved (Admin)").<br>Reservations require at least 3 days' notice. You can book up to 30 days ahead.</div></div>
           </div>
 
           <div id="specialSection" style="display:none;">
             <div class="section-divider">Requested Date & Time</div>
-            <div class="field"><label>Date (minimum 5 days in advance)</label><input type="date" id="specDate"></div>
+            <div class="field"><label>Date (minimum 3 days in advance)</label><input type="date" id="specDate"></div>
             <div class="time-row"><div class="field"><label>Start Time</label><input type="time" id="specStart"></div><div class="field"><label>End Time</label><input type="time" id="specEnd"></div></div>
             <div class="field"><label>Reason for Outside Hours</label><textarea id="specReason" placeholder="Briefly explain why you need access outside regular hours..."></textarea></div>
           </div>
@@ -564,7 +564,7 @@
     </div>
   </div>
 
-  <div class="rules-box left"><div class="rules-box-header">Lounge Guidelines</div><ul class="rules-list"><li><span class="rnum">1</span>All bookings must be submitted through the reservation portal and approved prior to the event.</li><li><span class="rnum">2</span>Requests should be made at least five days in advance, where possible.</li><li><span class="rnum">3</span>A safety deposit of $3000 JMD must be given to complete booking. The spot is not secure until the deposit is submitted.</li><li><span class="rnum">4</span>The individual making the reservation is the primary contact and responsible for the event and its attendees.</li><li><span class="rnum">5</span>Events must begin and end within the approved reservation period. Overrun will result in forfeiture of 25% of the deposit.</li><li><span class="rnum">6</span>Organizers must ensure participants are respectful and do not disrupt residents, the office, the athenaeum, or the computer room.</li><li><span class="rnum">7</span>The maximum occupancy of the lounge must not be exceeded at any time.</li></ul></div>
+  <div class="rules-box left"><div class="rules-box-header">Lounge Guidelines</div><ul class="rules-list"><li><span class="rnum">1</span>All bookings must be submitted through the reservation portal and approved prior to the event.</li><li><span class="rnum">2</span>Requests should be made at least three days in advance, where possible.</li><li><span class="rnum">3</span>A safety deposit of $3000 JMD must be given to complete booking. The spot is not secure until the deposit is submitted.</li><li><span class="rnum">4</span>The individual making the reservation is the primary contact and responsible for the event and its attendees.</li><li><span class="rnum">5</span>Events must begin and end within the approved reservation period. Overrun will result in forfeiture of 25% of the deposit.</li><li><span class="rnum">6</span>Organizers must ensure participants are respectful and do not disrupt residents, the office, the athenaeum, or the computer room.</li><li><span class="rnum">7</span>The maximum occupancy of the lounge must not be exceeded at any time.</li></ul></div>
   <div class="rules-box right"><ul class="rules-list"><li><span class="rnum">8</span>Decorations, displays or equipment may only be installed with prior approval and must not damage lounge property.</li><li><span class="rnum">9</span>Organizers must restore the lounge to its original condition immediately after the event, including removing all materials.</li><li><span class="rnum">10</span>Damage, loss or excessive cleaning costs will result in forfeiture of the safety deposit. Full restoration means the deposit is returned.</li><li><span class="rnum">11</span>Illegal substances, open flames, paint, or spray paint are strictly prohibited.</li><li><span class="rnum">12</span>Commercial activities, fundraising, or events involving external organizations require prior authorization from hall administration.</li><li><span class="rnum">13</span>Hall administration reserves the right to cancel any booking that violates these guidelines or poses a safety risk.</li><li><span class="rnum">14</span>Repeated violations of booking rules may result in suspension of future booking privileges.</li></ul></div>
 
   <div class="card mobile-compliance-wrapper" id="mobileComplianceWrapper">
@@ -615,7 +615,8 @@
   let isPublicMode = false;
 
   const MAX_CAP = 20;
-  const SLOTS = ['8:30 AM','9:30 AM','10:30 AM','11:30 AM','12:30 PM','1:30 PM','2:30 PM','3:30 PM'];
+  const SLOTS = ['8:30 AM','9:00 AM','9:30 AM','10:00 AM','10:30 AM','11:00 AM','11:30 AM','12:00 PM','12:30 PM','1:00 PM','1:30 PM','2:00 PM','2:30 PM','3:00 PM','3:30 PM','4:00 PM'];
+  const BLOCKED_LAST_THURSDAY = ['2:30 PM','3:00 PM','3:30 PM','4:00 PM'];
 
   const entryScreen = document.getElementById('entryScreen');
   const mainApp = document.getElementById('mainApp');
@@ -678,7 +679,7 @@
     grid.innerHTML = '';
     const isReservedDay = isLastThursday(selectedDate);
     SLOTS.forEach(slot => {
-      const isBlocked = isReservedDay && (slot === '2:30 PM' || slot === '3:30 PM');
+      const isBlocked = isReservedDay && BLOCKED_LAST_THURSDAY.includes(slot);
       const taken = bookings.some(b => b.date === selectedDate && b.type === 'standard' && b.slots && b.slots.includes(slot));
       const passed = isSlotPassed(slot, selectedDate);
       const isSelected = selectedSlots.includes(slot);
@@ -730,7 +731,7 @@
     const days = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
     const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
     const today = new Date();
-    const minAdvance = 5;
+    const minAdvance = 3;
     const numberOfDays = 30;
     let firstActiveIndex = -1;
     
@@ -793,12 +794,12 @@
       const today = new Date();
       const selectedDateObj = new Date(selectedDate + "T12:00:00");
       const diffDays = Math.ceil((selectedDateObj - today) / (1000 * 60 * 60 * 24));
-      if (diffDays < 5) return showToast('Too Early', 'Reservations must be made at least 5 days in advance.', false);
+      if (diffDays < 3) return showToast('Too Early', 'Reservations must be made at least 3 days in advance.', false);
       
       for (let slot of selectedSlots) {
         const taken = bookings.some(b => b.date === selectedDate && b.type === 'standard' && b.slots && b.slots.includes(slot));
         if (taken) return showToast('Slot Taken', `The slot ${slot} is already booked by someone else.`, false);
-        if (isLastThursday(selectedDate) && (slot === '2:30 PM' || slot === '3:30 PM'))
+        if (isLastThursday(selectedDate) && BLOCKED_LAST_THURSDAY.includes(slot))
           return showToast('Unavailable', `Slot ${slot} is permanently blocked (last Thursday).`, false);
         if (isSlotPassed(slot, selectedDate))
           return showToast('Slot Ended', `Slot ${slot} has already passed for today.`, false);
@@ -821,7 +822,7 @@
       const today = new Date();
       const selectedDateObj = new Date(specDate + "T12:00:00");
       const diffDays = Math.ceil((selectedDateObj - today) / (1000 * 60 * 60 * 24));
-      if (diffDays < 5) return showToast('Too Early', 'Special requests must also be made at least 5 days in advance.', false);
+      if (diffDays < 3) return showToast('Too Early', 'Special requests must also be made at least 3 days in advance.', false);
       entry.date = specDate;
       entry.startTime = formatTime(specStart);
       entry.endTime = formatTime(specEnd);
