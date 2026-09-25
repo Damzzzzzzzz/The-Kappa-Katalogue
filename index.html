@@ -486,8 +486,8 @@
   <div class="hero">
     <div class="hero-label">Commuters' Lounge at the Elsa Leo-Rhynie "Towers" Hall</div>
     <h1>Reserve<br>Your <em>Spot</em></h1>
-    <p class="hero-sub">Book a session in the Commuters' Lounge. <strong>All reservations require prior approval.</strong> Regular hours are <strong style="color:var(--text)">8:30 AM – 4:30 PM</strong>. Outside-hours requests may require additional review.</p>
-    <div class="hours-pill"><span class="dot"></span>Regular Hours: 8:30 AM – 4:30 PM, Mon–Fri</div>
+    <p class="hero-sub">Book a session in the Commuters' Lounge. <strong>All reservations require prior approval.</strong> Regular hours are <strong style="color:var(--text)">8:30 AM – 6:00 PM</strong>. Outside-hours requests may require additional review.</p>
+    <div class="hours-pill"><span class="dot"></span>Regular Hours: 8:30 AM – 6:00 PM, Mon–Fri</div>
   </div>
 
   <div class="capacity-bar-wrap" style="margin-bottom:2rem;">
@@ -508,7 +508,7 @@
         <div id="tab-book" class="tab-pane active">
           <div class="section-divider">Booking Type</div>
           <div class="type-toggle">
-            <div class="type-btn active" id="typeStd" onclick="setBookingType('standard')">Standard<br><small style="font-size:0.7rem;opacity:0.7">8:30 AM – 4:30 PM</small></div>
+            <div class="type-btn active" id="typeStd" onclick="setBookingType('standard')">Standard<br><small style="font-size:0.7rem;opacity:0.7">8:30 AM – 6:00 PM</small></div>
             <div class="type-btn" id="typeSpec" onclick="setBookingType('special')">Special Request<br><small style="font-size:0.7rem;opacity:0.7">Outside hours</small></div>
           </div>
           <div class="outside-notice" id="outsideNotice">All reservations are subject to approval by the Off-Campus Representative and Administration. You will be contacted at the email you provide.</div>
@@ -523,7 +523,7 @@
           <div class="field"><label>Event Type</label><select id="eventType"><option value="">— Select an event type —</option><option value="Study Session">Study Session</option><option value="Group Work / Project">Group Work / Project</option><option value="Meeting">Meeting</option><option value="Rest / Downtime">Rest / Downtime</option><option value="Hall Committee Event">Hall Committee Event</option><option value="Social Gathering">Social Gathering</option><option value="Other">Other</option></select></div>
 
           <div id="standardSection">
-            <div class="section-divider">Date & Time Slot (1‑hour blocks)</div>
+            <div class="section-divider">Date & Time Slot (30‑minute blocks)</div>
             <div class="field"><label>Select Date (minimum 3 days in advance – up to 1 month)</label><div class="date-grid" id="dateGrid"></div></div>
             <div class="field"><label>Choose Time Slot (click to select multiple consecutive slots)</label><div class="slots-grid" id="slotsGrid"></div><div class="info-note">Each slot = 30 minutes. You can select multiple <strong>consecutive</strong> slots for longer events. Selected slots will be highlighted in red.<br>2:30 PM – 4:30 PM on the last Thursday of every month are permanently reserved (shown as "Reserved (Admin)").<br>Reservations require at least 3 days' notice. You can book up to 30 days ahead.</div></div>
           </div>
@@ -532,6 +532,8 @@
             <div class="section-divider">Requested Date & Time</div>
             <div class="field"><label>Date (minimum 3 days in advance)</label><input type="date" id="specDate"></div>
             <div class="time-row"><div class="field"><label>Start Time</label><input type="time" id="specStart"></div><div class="field"><label>End Time</label><input type="time" id="specEnd"></div></div>
+            <div class="info-note" id="outsideBookedInfo">Pick a date to see any outside-hours times already booked.</div>
+            <div class="info-note">Outside-hours requests must fall <strong>before 8:30 AM or after 6:00 PM</strong> — the regular-hours window in between isn't available here. Book that under Standard instead.</div>
             <div class="field"><label>Reason for Outside Hours</label><textarea id="specReason" placeholder="Briefly explain why you need access outside regular hours..."></textarea></div>
           </div>
 
@@ -615,8 +617,10 @@
   let isPublicMode = false;
 
   const MAX_CAP = 20;
-  const SLOTS = ['8:30 AM','9:00 AM','9:30 AM','10:00 AM','10:30 AM','11:00 AM','11:30 AM','12:00 PM','12:30 PM','1:00 PM','1:30 PM','2:00 PM','2:30 PM','3:00 PM','3:30 PM','4:00 PM'];
+  const SLOTS = ['8:30 AM','9:00 AM','9:30 AM','10:00 AM','10:30 AM','11:00 AM','11:30 AM','12:00 PM','12:30 PM','1:00 PM','1:30 PM','2:00 PM','2:30 PM','3:00 PM','3:30 PM','4:00 PM','4:30 PM','5:00 PM','5:30 PM'];
   const BLOCKED_LAST_THURSDAY = ['2:30 PM','3:00 PM','3:30 PM','4:00 PM'];
+  const REGULAR_START_MIN = 8 * 60 + 30;  // 8:30 AM
+  const REGULAR_END_MIN = 18 * 60;        // 6:00 PM
 
   const entryScreen = document.getElementById('entryScreen');
   const mainApp = document.getElementById('mainApp');
@@ -634,10 +638,23 @@
   function addDays(date, days) { const result = new Date(date); result.setDate(result.getDate() + days); return getLocalDateString(result); }
   function formatDateWords(dateStr) { const d = new Date(dateStr + "T12:00:00"); return d.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' }); }
   function saveToBackend() { if(db) db.ref('kappa_bookings').set(bookings).catch(e=>console.warn); }
-  if(db) { db.ref('kappa_bookings').on('value', (snapshot) => { if(snapshot.exists()) bookings = snapshot.val(); updateCapacity(); buildSlots(); if(isAdminLoggedIn) renderAdminList(); if(document.getElementById('lookupEmail').value) lookupBookings(); updatePendingCount(); }); }
+  if(db) { db.ref('kappa_bookings').on('value', (snapshot) => { if(snapshot.exists()) bookings = snapshot.val(); updateCapacity(); buildSlots(); updateOutsideBookedInfo(); if(isAdminLoggedIn) renderAdminList(); if(document.getElementById('lookupEmail').value) lookupBookings(); updatePendingCount(); }); }
   function timeToMinutes(timeStr) { let [time, modifier] = timeStr.split(' '); let [hours, minutes] = time.split(':').map(Number); if (modifier === 'PM' && hours !== 12) hours += 12; if (modifier === 'AM' && hours === 12) hours = 0; return hours * 60 + minutes; }
   function isSlotPassed(slot, dateStr) { const todayStr = getLocalDateString(new Date()); if (dateStr !== todayStr) return false; const now = new Date(); const currentMinutes = now.getHours() * 60 + now.getMinutes(); const slotMinutes = timeToMinutes(slot); return slotMinutes < currentMinutes; }
   function isLastThursday(dateStr) { const d = new Date(dateStr + "T12:00:00"); if (d.getDay() !== 4) return false; const nextWeek = new Date(d); nextWeek.setDate(d.getDate() + 7); return nextWeek.getMonth() !== d.getMonth(); }
+  function minutesFromInputTime(t) { const [h, m] = t.split(':').map(Number); return h * 60 + m; }
+  function rangesOverlap(aStart, aEnd, bStart, bEnd) { return aStart < bEnd && aEnd > bStart; }
+  function getOutsideBookingsForDate(dateStr) { return bookings.filter(b => b.type === 'special' && b.date === dateStr); }
+  function updateOutsideBookedInfo() {
+    const el = document.getElementById('outsideBookedInfo');
+    if (!el) return;
+    const specDate = document.getElementById('specDate') ? document.getElementById('specDate').value : '';
+    if (!specDate) { el.innerHTML = 'Pick a date to see any outside-hours times already booked.'; return; }
+    const existing = getOutsideBookingsForDate(specDate);
+    if (!existing.length) { el.innerHTML = 'No outside-hours times are booked yet for this date.'; return; }
+    const list = existing.map(b => `${b.startTime} – ${b.endTime}${b.status ? ` (${b.status})` : ''}`).join('<br>');
+    el.innerHTML = `<strong>Already requested for this date:</strong><br>${list}`;
+  }
   
   function toggleSlot(slot) {
     if (selectedSlots.includes(slot)) {
@@ -722,7 +739,7 @@
   async function sendAdminNotification(booking) { const timeLabel = booking.type === 'special' ? `${booking.startTime} – ${booking.endTime}` : (booking.slots ? booking.slots.join(', ') : booking.slot); const formattedDate = formatDateWords(booking.date); const adminMessage = getAdminEmailMessage(booking, formattedDate, timeLabel); const templateParams = { to_name: "Admin", to_email: ADMIN_EMAIL, student_id: booking.studentId, event_name: booking.eventName, date: formattedDate, time: timeLabel, message: adminMessage, subject: "🔔 New Reservation Request – Action Required" }; try { await emailjs.send(EMAIL_SERVICE, EMAIL_TEMPLATE, templateParams); console.log("✅ Admin notification email sent"); } catch (error) { console.error("❌ Admin email failed:", error); } }
   function showDesktopNotification(booking) { if (!isAdminLoggedIn) return; if (!("Notification" in window)) return; if (Notification.permission === "granted") { new Notification("🔔 New Reservation Request", { body: `${booking.name} requested ${booking.eventName} on ${booking.date} at ${booking.slots ? booking.slots.join(', ') : booking.slot}`, icon: "https://cdn-icons-png.flaticon.com/512/190/190411.png" }); } }
   function updatePendingCount() { if (!isAdminLoggedIn) return; const pendingCount = bookings.filter(b => b.status === 'Pending Approval').length; const adminBadge = document.getElementById('adminBadge'); const adminTabBadge = document.getElementById('adminTabBadge'); if (adminBadge) { if (pendingCount > 0) { adminBadge.textContent = pendingCount; adminBadge.style.display = 'inline-block'; } else { adminBadge.style.display = 'none'; } } if (adminTabBadge) { if (pendingCount > 0) { adminTabBadge.textContent = pendingCount; adminTabBadge.style.display = 'inline-block'; } else { adminTabBadge.style.display = 'none'; } } }
-  function setBookingType(type) { bookingType = type; document.getElementById('typeStd').classList.toggle('active', type === 'standard'); document.getElementById('typeSpec').classList.toggle('active', type === 'special'); document.getElementById('standardSection').style.display = type === 'standard' ? '' : 'none'; document.getElementById('specialSection').style.display = type === 'special' ? '' : 'none'; document.getElementById('outsideNotice').style.display = 'block'; }
+  function setBookingType(type) { bookingType = type; document.getElementById('typeStd').classList.toggle('active', type === 'standard'); document.getElementById('typeSpec').classList.toggle('active', type === 'special'); document.getElementById('standardSection').style.display = type === 'standard' ? '' : 'none'; document.getElementById('specialSection').style.display = type === 'special' ? '' : 'none'; document.getElementById('outsideNotice').style.display = 'block'; if (type === 'special') updateOutsideBookedInfo(); }
   
   function buildDateGrid() {
     const grid = document.getElementById('dateGrid');
@@ -760,11 +777,17 @@
       }
     }
     const minDateForSpecial = addDays(today, minAdvance);
-    document.getElementById('specDate').min = minDateForSpecial;
-    if (!document.getElementById('specDate').value) {
-      document.getElementById('specDate').value = minDateForSpecial;
+    const specDateInput = document.getElementById('specDate');
+    specDateInput.min = minDateForSpecial;
+    if (!specDateInput.value) {
+      specDateInput.value = minDateForSpecial;
+    }
+    if (!specDateInput.dataset.bound) {
+      specDateInput.addEventListener('change', updateOutsideBookedInfo);
+      specDateInput.dataset.bound = 'true';
     }
     buildSlots();
+    updateOutsideBookedInfo();
   }
   
   function updateCapacity() { const today = getLocalDateString(new Date()); const used = bookings.filter(b => b.date === today && b.type === 'standard').reduce((sum, b) => sum + (b.slots ? b.slots.length : 1), 0); document.getElementById('capUsed').textContent = used; document.getElementById('capFill').style.width = Math.min((used / MAX_CAP) * 100, 100) + '%'; const todayList = bookings.filter(b => b.date === today && b.status === 'Approved'); document.getElementById('todayCount').textContent = `${todayList.length} booked`; renderBookingsList(todayList); }
@@ -823,9 +846,21 @@
       const selectedDateObj = new Date(specDate + "T12:00:00");
       const diffDays = Math.ceil((selectedDateObj - today) / (1000 * 60 * 60 * 24));
       if (diffDays < 3) return showToast('Too Early', 'Special requests must also be made at least 3 days in advance.', false);
+
+      const reqStartMin = minutesFromInputTime(specStart);
+      const reqEndMin = minutesFromInputTime(specEnd);
+      if (rangesOverlap(reqStartMin, reqEndMin, REGULAR_START_MIN, REGULAR_END_MIN)) {
+        return showToast('Falls Within Regular Hours', 'Outside-hours requests must be entirely before 8:30 AM or after 6:00 PM. Please book regular hours under Standard instead.', false);
+      }
+
+      const startLabel = formatTime(specStart);
+      const endLabel = formatTime(specEnd);
+      const conflict = getOutsideBookingsForDate(specDate).find(b => rangesOverlap(reqStartMin, reqEndMin, timeToMinutes(b.startTime), timeToMinutes(b.endTime)));
+      if (conflict) return showToast('Time Taken', `That time overlaps an existing outside-hours request (${conflict.startTime} – ${conflict.endTime}).`, false);
+
       entry.date = specDate;
-      entry.startTime = formatTime(specStart);
-      entry.endTime = formatTime(specEnd);
+      entry.startTime = startLabel;
+      entry.endTime = endLabel;
       entry.reason = specReason;
     }
 
@@ -848,6 +883,7 @@
     if (chkConsent) chkConsent.checked = false;
     selectedSlots = [];
     buildSlots();
+    updateOutsideBookedInfo();
     showToast('Success!', 'Request sent for approval.', true);
   }
 
